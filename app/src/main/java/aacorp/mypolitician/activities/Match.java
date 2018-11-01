@@ -1,7 +1,9 @@
-package aacorp.mypolitician;
+package aacorp.mypolitician.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import aacorp.mypolitician.R;
 
 public class Match extends AppCompatActivity {
 
