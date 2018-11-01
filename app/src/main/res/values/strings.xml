@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Politician</string>
+    <string name="facebook_app_id">2089780137777587</string>
+    <string name="fb_login_protocol_scheme">fb2089780137777587</string>
+    <string name="title_activity_log_in">LogInActivity</string>
+
 </resources>
