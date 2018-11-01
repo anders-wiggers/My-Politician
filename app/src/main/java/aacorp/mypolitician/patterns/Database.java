@@ -1,4 +1,4 @@
-package aacorp.mypolitician.patters;
+package aacorp.mypolitician.patterns;
 
 class Database {
 
