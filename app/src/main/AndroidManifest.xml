@@ -19,11 +19,6 @@
             </intent-filter>
         </activity>
 
-
-
-
-
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -44,12 +39,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activities.LogInActivity"
             android:label="@string/title_activity_log_in"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.MatchList"></activity>
     </application>
 
 </manifest>
