@@ -50,6 +50,9 @@ public class LogInActivity extends AppCompatActivity {
             loginButton.setReadPermissions(Arrays.asList("email"));
             t2 = (TextView) findViewById(R.id.textView2);
         }
+        else{
+            setContentView(R.layout.activity_match);
+        }
 
     }
 
