@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1017091884165",
+    "firebase_url": "https://my-politician-eb1be.firebaseio.com",
+    "project_id": "my-politician-eb1be",
+    "storage_bucket": "my-politician-eb1be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017091884165:android:2d5aab863ebb5b72",
+        "android_client_info": {
+          "package_name": "aacorp.mypolitician"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017091884165-n9ng9jbmp0rq2slsi7p3e0ovjq3b3237.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "aacorp.mypolitician",
+            "certificate_hash": "3f28232608cfcba3fb67224abc51f91b44cf7d70"
+          }
+        },
+        {
+          "client_id": "1017091884165-kunoa3is2b27hqtq8mnr0bs8uirh4jat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "aacorp.mypolitician",
+            "certificate_hash": "4b9a85a5914a0df55f3df42b38e45c5a1d7c4a26"
+          }
+        },
+        {
+          "client_id": "1017091884165-o8jvf12cr17fhm9iu7iuachv2l3lmpc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSUw5CJ-WOhK4Jb-_gamgVAiHRKLCiluM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017091884165-o8jvf12cr17fhm9iu7iuachv2l3lmpc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

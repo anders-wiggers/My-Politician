@@ -1,22 +1,39 @@
 package aacorp.mypolitician.patterns;
 
+import android.util.Log;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
-class Database {
-    private static final Database instance = new Database();
+import aacorp.mypolitician.frameword.Match;
+
+public class Database {
+    private static Database instance;
     private FirebaseFirestore db;
 
-    private Database(){}
+    protected Database(){
+        initialize();
+    }
 
-    public static Database getInstance(){
+    public static synchronized Database getInstance(){
+        if(instance == null){
+            instance = new Database();
+
+        }
         return instance;
     }
 
     public FirebaseFirestore getDatabase(){
-        return db = FirebaseFirestore.getInstance();
+        return db;
     }
 
+    private void initialize(){
+        db = FirebaseFirestore.getInstance();
+    }
 
+    public Match getAMatch(){
+        Log.e("db svar",db.collection("politicians").get().toString());
+        return null;
+    }
 
 
 }
