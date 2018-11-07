@@ -14,8 +14,6 @@ public class Match extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
-
-
     }
 
     public void MatchList(View view){
@@ -24,7 +22,7 @@ public class Match extends AppCompatActivity {
     }
 
     public void Login(View view){
-        Intent intent = new Intent(this,LogInActivity.class);
+        Intent intent = new Intent(this,LogIn.class);
         startActivity(intent);
     }
 }

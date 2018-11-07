@@ -1,4 +1,4 @@
-package aacorp.mypolitician.frameword;
+package aacorp.mypolitician.framework;
 
 import java.util.Objects;
 
