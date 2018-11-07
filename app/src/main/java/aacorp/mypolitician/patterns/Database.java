@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import aacorp.mypolitician.frameword.Match;
+import aacorp.mypolitician.framework.Match;
 
 public class Database {
     private static Database instance;

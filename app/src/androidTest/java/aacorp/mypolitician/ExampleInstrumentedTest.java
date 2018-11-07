@@ -23,4 +23,9 @@ public class ExampleInstrumentedTest {
 
         assertEquals("aacorp.mypolitician", appContext.getPackageName());
     }
+
+    @Test
+    public void nameFromDbShouldBeFooBar(){
+
+    }
 }
