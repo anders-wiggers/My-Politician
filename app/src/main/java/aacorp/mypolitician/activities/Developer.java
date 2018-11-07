@@ -15,6 +15,7 @@ public class Developer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developer);
+        Database.getInstance();
     }
 
     public void MatchList(View view){
@@ -23,8 +24,9 @@ public class Developer extends AppCompatActivity {
         startActivity(intent);
         */
         TextView textView = findViewById(R.id.textView);
-        //textView.setText(Database.getInstance().getAMatch().getName());
-        Database.getInstance().getAMatch();
+
+        textView.setText(Database.getInstance().fetchRandomPolitician(true).getName());
+        //Log.d("DbTest",Database.getInstance().getAMatch().getName());
 
 
     }
