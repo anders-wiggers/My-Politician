@@ -4,6 +4,8 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Map;
 
+import aacorp.mypolitician.Implementation.StrengthImpl;
+
 public interface Match {
 
     String getName();
@@ -16,6 +18,6 @@ public interface Match {
 
     int getProfilePictureId();
 
-    Map<String,Strength> getStrength();
+    Map<String,StrengthImpl> getStrength();
 
 }

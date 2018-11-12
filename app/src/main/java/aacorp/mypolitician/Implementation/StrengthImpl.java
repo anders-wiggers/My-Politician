@@ -6,6 +6,9 @@ public class StrengthImpl implements Strength {
     private int percent;
     private String text;
 
+    public StrengthImpl(){
+    }
+
     @Override
     public int getPercent() {
         return percent;

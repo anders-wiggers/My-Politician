@@ -5,7 +5,6 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.Map;
 
 import aacorp.mypolitician.framework.Match;
-import aacorp.mypolitician.framework.Strength;
 
 public class MatchImpl implements Match {
 
@@ -14,7 +13,7 @@ public class MatchImpl implements Match {
     private GeoPoint area;
     private int bannerId;
     private int profilePictureId;
-    private Map<String,Strength> strength;
+    private Map<String,StrengthImpl> strength;
 
     public MatchImpl(){
     }
@@ -45,7 +44,7 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public Map<String,Strength> getStrength() {
+    public Map<String,StrengthImpl> getStrength() {
         return strength;
     }
 
@@ -69,7 +68,19 @@ public class MatchImpl implements Match {
         this.profilePictureId = profilePictureId;
     }
 
-    public void setStrength(Map<String,Strength> strength) {
+    public void setStrength(Map<String,StrengthImpl> strength) {
         this.strength = strength;
+    }
+
+    @Override
+    public String toString() {
+        return "MatchImpl{" +
+                "name='" + name + '\'' +
+                ", party='" + party + '\'' +
+                ", area=" + area +
+                ", bannerId=" + bannerId +
+                ", profilePictureId=" + profilePictureId +
+                ", strength=" + strength +
+                '}';
     }
 }

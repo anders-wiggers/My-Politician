@@ -39,10 +39,15 @@ public class Developer extends AppCompatActivity {
     public void debug(View view){
         TextView textView = findViewById(R.id.textView);
 
+
         MatchImpl politician = (MatchImpl) Database.getInstance().fetchDummy();
         textView.setText(Database.getInstance().fetchRandomPolitician().getName());
 
-        Log.e(log,politician.getName()+ " has following strenght: " + politician.getStrength().get("def").getClass());
+
+        Log.e(log,politician.getName()+ " has following strenght: " + politician.getStrength().get("def").getPercent());
+
+
+        //Database.getInstance().createPolitician();
 
     }
 }
