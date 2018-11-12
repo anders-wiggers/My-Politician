@@ -1,6 +1,8 @@
 package aacorp.mypolitician.framework;
 
-import java.util.List;
+import com.google.firebase.firestore.GeoPoint;
+
+import java.util.Map;
 
 public interface Match {
 
@@ -8,12 +10,12 @@ public interface Match {
 
     String getParty();
 
-    Area getArea();
+    GeoPoint getArea();
 
     int getBannerId();
 
     int getProfilePictureId();
 
-    List<Strength> getStrenghts();
+    Map<String,Strength> getStrength();
 
 }

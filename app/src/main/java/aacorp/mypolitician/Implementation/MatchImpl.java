@@ -1,20 +1,24 @@
 package aacorp.mypolitician.Implementation;
 
-import java.util.List;
+import com.google.firebase.firestore.GeoPoint;
 
-import aacorp.mypolitician.framework.Area;
+import java.util.Map;
+
 import aacorp.mypolitician.framework.Match;
 import aacorp.mypolitician.framework.Strength;
 
 public class MatchImpl implements Match {
 
-    private final String name;
-    private final String party;
+    private String name;
+    private String party;
+    private GeoPoint area;
+    private int bannerId;
+    private int profilePictureId;
+    private Map<String,Strength> strength;
 
-    public MatchImpl(String name, String party){
-        this.name = name;
-        this.party = party;
+    public MatchImpl(){
     }
+
     @Override
     public String getName() {
         return name;
@@ -26,22 +30,46 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public Area getArea() {
-        return null;
+    public GeoPoint getArea() {
+        return area;
     }
 
     @Override
     public int getBannerId() {
-        return 0;
+        return bannerId;
     }
 
     @Override
     public int getProfilePictureId() {
-        return 0;
+        return profilePictureId;
     }
 
     @Override
-    public List<Strength> getStrenghts() {
-        return null;
+    public Map<String,Strength> getStrength() {
+        return strength;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setParty(String party) {
+        this.party = party;
+    }
+
+    public void setArea(GeoPoint area) {
+        this.area = area;
+    }
+
+    public void setBannerId(int bannerId) {
+        this.bannerId = bannerId;
+    }
+
+    public void setProfilePictureId(int profilePictureId) {
+        this.profilePictureId = profilePictureId;
+    }
+
+    public void setStrength(Map<String,Strength> strength) {
+        this.strength = strength;
     }
 }

@@ -4,29 +4,32 @@ package aacorp.mypolitician.patterns;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
 
 import aacorp.mypolitician.Implementation.MatchImpl;
+import aacorp.mypolitician.Implementation.StrengthImpl;
 import aacorp.mypolitician.framework.Match;
+import aacorp.mypolitician.framework.Strength;
 
 public class Database {
     private static Database instance;
     private FirebaseFirestore db;
-    private Timer timer = new Timer();
+    private List<MatchImpl> politicians = new ArrayList<>();
 
 
     protected Database(){
-        initialize();
+        //initialize();
     }
 
     public static synchronized Database getInstance(){
         if(instance == null){
             instance = new Database();
-
         }
         return instance;
     }
@@ -41,34 +44,61 @@ public class Database {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> myData = queryDocumentSnapshots.getDocuments();
-                //match = queryDocumentSnapshots.toObjects(MatchImpl.class);
-                match = (MatchImpl) generatePolitician(myData.get(0).getData());
+
+                for(DocumentSnapshot ds :queryDocumentSnapshots.getDocuments()){
+                    MatchImpl politician = ds.toObject(MatchImpl.class);
+                    Map<String,Object> strength = (HashMap) ds.get("strength");
+                    HashMap<String,Strength> strengthHashMap = new HashMap<>();
+                    int i = 0;
+                    for(Object o:strength.values()){
+                        Map<String,Object> objectMap = (Map<String,Object>) o;
+                        StrengthImpl s = new StrengthImpl();
+                        Long percent = (Long) objectMap.get("percent");
+                        s.setPercent(percent.intValue());
+                        s.setText(objectMap.get("text").toString());
+                        strengthHashMap.put( (String) strength.keySet().toArray()[i],s);
+                        i++;
+                    }
+                    politician.setStrength(strengthHashMap);
+                    politicians.add(politician);
+
+                }
+                //politicians = queryDocumentSnapshots.toObjects(MatchImpl.class);
+
             }
         });
     }
-    private  MatchImpl match;
 
-    private Match generatePolitician(Map<String,Object> data){
-        Match politician = new MatchImpl(data.get("name").toString(),data.get("party").toString());
-        return politician;
+    public Match fetchDummy(){
+        return politicians.get(0);
     }
 
-    private void gogog(){
-
+    public Match fetchRandomPolitician(){
+        int rngPolitician = (int) Math.floor(Math.random() * Math.floor(politicians.size()));
+        return politicians.get(rngPolitician);
     }
 
-    private MatchImpl politician;
-    public Match fetchRandomPolitician(boolean first){
-        db.collection("politicians").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<DocumentSnapshot> myData = queryDocumentSnapshots.getDocuments();
-                //match = queryDocumentSnapshots.toObjects(MatchImpl.class);
-                politician = (MatchImpl) generatePolitician(myData.get(0).getData());
-            }
-        });
+    public void createPolitician(){
+        MatchImpl m = new MatchImpl();
+        m.setName("lala");
+        m.setArea(new GeoPoint(50,10));
+        m.setBannerId(12345);
+        m.setParty("Svendborg Partiet");
+        m.setProfilePictureId(12345);
 
-        return politician;
+        StrengthImpl s = new StrengthImpl();
+        StrengthImpl s1 = new StrengthImpl();
+        Map<String,Strength> sl = new HashMap<>();
+
+        s.setPercent(20);
+        s.setText("ayyy");
+        sl.put("def",s);
+
+        s1.setText("I belive in the Power");
+        s1.setPercent(50);
+        sl.put("wor",s1);
+
+        m.setStrength(sl);
+        db.collection("politicians").add(m);
     }
-
 }

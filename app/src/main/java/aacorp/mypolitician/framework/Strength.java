@@ -4,6 +4,6 @@ public interface Strength {
     
     int getPercent();
 
-    String[] getText();
+    String getText();
     
 }
