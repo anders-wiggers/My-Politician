@@ -7,13 +7,14 @@
     tools:context=".activities.LogIn"
     android:background="@drawable/backgroundlogin" >
 
+
     <ImageView
         android:id="@+id/Politikerbillede"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/logo" />
 
     <TextView
@@ -32,7 +33,7 @@
         android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="143dp"
+        android:layout_marginBottom="89dp"
         android:background="@drawable/fbandgglebtroundcorner"
         android:contentDescription="@string/com_facebook_loginview_log_in_button_continue"
         android:text="@string/com_facebook_loginview_log_in_button_continue"

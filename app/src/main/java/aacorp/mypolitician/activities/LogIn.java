@@ -46,7 +46,7 @@ public class LogIn extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        //Firebase auth
+        //Initialize firebase auth
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize Facebook Login button
@@ -87,13 +87,14 @@ public class LogIn extends Activity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if (currentUser != null) {
             updateUI();
         }
     }
 
+    //Send user to next page
     public void updateUI(){
-
         Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
 
         Intent MatchIntent = new Intent(LogIn.this, Match.class);
@@ -125,18 +126,22 @@ public class LogIn extends Activity {
                             mFacebookBtn.setEnabled(true);
 
                             updateUI();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LogIn.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogIn.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
                             mFacebookBtn.setEnabled(true);
                         }
 
-                        // ...
                     }
                 });
     }
+
+    ///////////EMAIL AND PASSWORDAUTHENTICATION////////////////
+
+
+
 
 }
