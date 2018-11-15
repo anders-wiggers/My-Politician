@@ -1,7 +1,9 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
+/**
+ * Match is the main Activity
+ *
+ *  @author Anders Bille Wiggers
+ *  for Introduction-to-Human-Computer-InteractionI course.
+ *  Copyright (c) 2018.
  *
  */
 
@@ -11,8 +13,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ExpandableListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
@@ -23,7 +23,7 @@ public class Match extends Activity {
     ExpandableListView expandableListView;
 
 
-    private Politician politician;
+    private Politician politician; //The politician on display
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +31,12 @@ public class Match extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
-        politician = Database.getInstance().fetchRandomPolitician();
-        ProgressBar pb = findViewById(R.id.progressBar);
-        pb.setProgress(politician.getStrength().get("def").getPercent());
-
-        TextView tw = findViewById(R.id.textView2);
-        tw.setText(politician.getStrength().get("def").getText());
+        politician = Database.getInstance().fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
 
         expandableListView = (ExpandableListView) findViewById(R.id.eList);
 
-        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
-        expandableListView.setAdapter(adapter);
+        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician); //Create custom adapter
+        expandableListView.setAdapter(adapter); //Set the adapter for the listView.
     }
 
 
