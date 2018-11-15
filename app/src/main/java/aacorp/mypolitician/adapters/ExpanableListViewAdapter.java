@@ -1,7 +1,12 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
+/**
+ *  Adapter for the ExpandableListView in Match
+ *
+ *  Handles generation of the ExpandelbeListView be extending the
+ *  Base Expandable List Adapter and overriding the classes.
+ *
+ *  @author Anders Bille Wiggers
+ *  for Introduction-to-Human-Computer-InteractionI course.
+ *  Copyright (c) 2018
  *
  */
 
@@ -13,20 +18,18 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.Strength;
 
 public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
 
-    private final Politician match;
-    ProgressBar[] progressBars;
+    private final Politician match; //The Politician
 
-    String[] groupNames;
-    String[][] childNames;
+    String[] groupNames; //Names of the Dropdowns
+    String[][] childNames; //Content of the Dropdowns
 
-    Context context;
+    Context context; //The context of the view.
 
     public ExpanableListViewAdapter(Context context, Politician match){
         this.context = context;
@@ -36,7 +39,7 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
         childNames = new String[match.getStrength().size()][1];
 
         int i=0;
-        for(Strength s : match.getStrength().values()){
+        for(Strength s : match.getStrength().values()){         //retrieving the text and percent from the politicians strengths
             groupNames[i] = String.valueOf(s.getPercent());
             childNames[i][0] = s.getText();
             i++;
@@ -55,7 +58,7 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return progressBars[groupPosition];
+        return groupNames[groupPosition];
     }
 
     @Override
@@ -78,29 +81,27 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+    /**
+     * Generates a groupView for a giving position. By returning a View of a new progress bar.
+     *
+     * @return A progress bar with the appropriate strength as Progress.
+     */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
         ProgressBar pb = new ProgressBar(context,null,android.R.attr.progressBarStyleHorizontal);
         pb.setProgress(Integer.parseInt(groupNames[groupPosition]));
-        TextView textView = new TextView(context);
-        textView.setText(groupNames[groupPosition]);
-        textView.setTextSize(40);
         return pb;
     }
 
+    /**
+     * method generates the textview that encapsulated the appropriate text to a given strength
+     *
+     * @return A textview with the politicians comment on his/her strength
+     */
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final TextView textView = new TextView(context);
         textView.setText(childNames[groupPosition][childPosition]);
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,textView.getText().toString(),Toast.LENGTH_LONG).show();
-            }
-        });
-
-
         return textView;
     }
 

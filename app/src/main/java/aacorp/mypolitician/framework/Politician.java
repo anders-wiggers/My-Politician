@@ -15,18 +15,34 @@ import aacorp.mypolitician.Implementation.StrengthImpl;
 
 public interface Politician {
 
-    int getKey();
-
+    /**
+     * @return Should return a politicians Name
+     */
     String getName();
 
-    Enum getParty();
+    /**
+     * @return Should return a politicians Party
+     */
+    String getParty();
 
-    GeoPoint getGeoPoint();
+    /**
+     * @return Should return a politicians Area as a Geopoint
+     */
+    GeoPoint getArea();
 
+    /**
+     * @return Should return a politicians Banner Id
+     */
     int getBannerId();
 
+    /**
+     * @return Should return a politicians Profile picture id
+     */
     int getProfilePictureId();
 
+    /**
+     * @return Should return a politicians strength as a List
+     */
     Map<String,StrengthImpl> getStrength();
 
 }

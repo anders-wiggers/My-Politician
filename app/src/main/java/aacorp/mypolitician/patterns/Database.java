@@ -1,7 +1,10 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
+/**
+ *  Database is a Singleton class which handles all communication with
+ *  Firestore.
+ *
+ *  @author Anders Bille Wiggers
+ *  for Introduction-to-Human-Computer-InteractionI course.
+ *  Copyright (c) 2018.
  *
  */
 
@@ -24,15 +27,19 @@ import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 
 public class Database {
-    private static Database instance;
-    private FirebaseFirestore db;
-    private List<PoliticianImpl> politicians = new ArrayList<>();
+    private static Database instance;  //Singleton instance
+    private FirebaseFirestore db;   //Firestore instance
+    private List<PoliticianImpl> politicians = new ArrayList<>(); //Politicians fetched from the database
 
 
     protected Database(){
         initialize();
     }
 
+    /**
+     * Singleton method to return the instance of the Database class.
+     * @return the only object of the database instance.
+     */
     public static synchronized Database getInstance(){
         if(instance == null){
             instance = new Database();
@@ -44,7 +51,9 @@ public class Database {
         return db;
     }
 
-
+    /**
+     * Initialises the Firestore database and fetches politicians to the ArrayList politicians.
+     */
     private void initialize(){
         db = FirebaseFirestore.getInstance();
 
@@ -56,15 +65,28 @@ public class Database {
         });
     }
 
+    /**
+     * Method fetches a dummy politicians that is always the first in the arrayList
+     * @return dummy Politician
+     */
     public Politician fetchDummy(){
         return politicians.get(0);
     }
 
+    /**
+     * Method fetches a random politician from the arrayList politicians by generating
+     * a random number that is between 0 and the number of politicians fetches to the list.
+     * @return random Politician
+     */
     public Politician fetchRandomPolitician(){
         int rngPolitician = (int) Math.floor(Math.random() * Math.floor(politicians.size()));
         return politicians.get(rngPolitician);
     }
 
+    /**
+     * Method that create a politician and transfers the newly created politicians
+     * to the Firestore database.
+     */
     public void createPolitician(){
         PoliticianImpl politician = new PoliticianImpl();
         politician.setName("lala");

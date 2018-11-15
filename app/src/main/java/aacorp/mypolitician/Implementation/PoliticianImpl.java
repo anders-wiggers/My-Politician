@@ -1,7 +1,11 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
+/**
+ *  PolitcianImpl is the implementation of the Politician Interface.
+ *  The class is a pretty trivial implementation, the reason for this is
+ *  that a trivial class is easy to move to the FireStore solution.
+ *
+ *  @author Anders Bille Wiggers
+ *  for Introduction-to-Human-Computer-InteractionI course.
+ *  Copyright (c) 2018.
  *
  */
 

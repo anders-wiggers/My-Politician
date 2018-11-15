@@ -1,7 +1,9 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
+/**
+ *  StrengthImpl is the implementation of the strength interface.
+ *
+ *  @author Anders Bille Wiggers
+ *  for Introduction-to-Human-Computer-InteractionI course.
+ *  Copyright (c) 2018.
  *
  */
 
