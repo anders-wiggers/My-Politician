@@ -18,14 +18,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import aacorp.mypolitician.Implementation.MatchImpl;
+import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.Implementation.StrengthImpl;
-import aacorp.mypolitician.framework.Match;
+import aacorp.mypolitician.framework.Politician;
 
 public class Database {
     private static Database instance;
     private FirebaseFirestore db;
-    private List<MatchImpl> politicians = new ArrayList<>();
+    private List<PoliticianImpl> politicians = new ArrayList<>();
 
 
     protected Database(){
@@ -50,27 +50,27 @@ public class Database {
         db.collection("politicians").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                politicians = queryDocumentSnapshots.toObjects(MatchImpl.class);
+                politicians = queryDocumentSnapshots.toObjects(PoliticianImpl.class);
             }
         });
     }
 
-    public Match fetchDummy(){
+    public Politician fetchDummy(){
         return politicians.get(0);
     }
 
-    public Match fetchRandomPolitician(){
+    public Politician fetchRandomPolitician(){
         int rngPolitician = (int) Math.floor(Math.random() * Math.floor(politicians.size()));
         return politicians.get(rngPolitician);
     }
 
     public void createPolitician(){
-        MatchImpl m = new MatchImpl();
-        m.setName("lala");
-        m.setArea(new GeoPoint(50,10));
-        m.setBannerId(12345);
-        m.setParty("Svendborg Partiet");
-        m.setProfilePictureId(12345);
+        PoliticianImpl politician = new PoliticianImpl();
+        politician.setName("lala");
+        politician.setArea(new GeoPoint(50,10));
+        politician.setBannerId(12345);
+        politician.setParty("Svendborg Partiet");
+        politician.setProfilePictureId(12345);
 
         StrengthImpl s = new StrengthImpl();
         StrengthImpl s1 = new StrengthImpl();
@@ -84,9 +84,9 @@ public class Database {
         s1.setPercent(50);
         sl.put("wor",s1);
 
-        m.setStrength(sl);
+        politician.setStrength(sl);
 
-        System.out.println(m.toString());
-        db.collection("politicians").add(m);
+        System.out.println(politician.toString());
+        db.collection("politicians").add(politician);
     }
 }

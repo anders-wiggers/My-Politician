@@ -16,13 +16,14 @@ import android.widget.TextView;
 
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
+import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.patterns.Database;
 
 public class Match extends Activity {
     ExpandableListView expandableListView;
 
 
-    private aacorp.mypolitician.framework.Match politician;
+    private Politician politician;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

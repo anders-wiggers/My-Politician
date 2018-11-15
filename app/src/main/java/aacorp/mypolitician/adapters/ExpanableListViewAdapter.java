@@ -15,12 +15,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import aacorp.mypolitician.framework.Match;
+import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.Strength;
 
 public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
 
-    private final Match match;
+    private final Politician match;
     ProgressBar[] progressBars;
 
     String[] groupNames;
@@ -28,7 +28,7 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
 
     Context context;
 
-    public ExpanableListViewAdapter(Context context, Match match){
+    public ExpanableListViewAdapter(Context context, Politician match){
         this.context = context;
         this.match = match;
 
