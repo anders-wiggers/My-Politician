@@ -13,7 +13,7 @@ import java.util.Map;
 
 import aacorp.mypolitician.Implementation.StrengthImpl;
 
-public interface Match {
+public interface Politician {
 
     String getName();
 

@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import aacorp.mypolitician.Implementation.MatchImpl;
+import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.patterns.Database;
 
@@ -40,7 +40,7 @@ public class Developer extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
 
 
-        MatchImpl politician = (MatchImpl) Database.getInstance().fetchDummy();
+        PoliticianImpl politician = (PoliticianImpl) Database.getInstance().fetchDummy();
         textView.setText(Database.getInstance().fetchRandomPolitician().getName());
 
 

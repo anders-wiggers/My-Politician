@@ -11,9 +11,9 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Map;
 
-import aacorp.mypolitician.framework.Match;
+import aacorp.mypolitician.framework.Politician;
 
-public class MatchImpl implements Match {
+public class PoliticianImpl implements Politician {
 
     private String name;
     private String party;
@@ -22,7 +22,7 @@ public class MatchImpl implements Match {
     private int profilePictureId;
     private Map<String,StrengthImpl> strength;
 
-    public MatchImpl(){
+    public PoliticianImpl(){
     }
 
     @Override
@@ -81,7 +81,7 @@ public class MatchImpl implements Match {
 
     @Override
     public String toString() {
-        return "MatchImpl{" +
+        return "PoliticianImpl{" +
                 "name='" + name + '\'' +
                 ", party='" + party + '\'' +
                 ", area=" + area +
