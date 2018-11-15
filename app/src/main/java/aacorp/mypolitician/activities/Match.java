@@ -1,7 +1,10 @@
-/*
- * Copyright (c) 2018.
+/**
+ *
+ *
  * @author Anders Bille Wiggers
+ * @author Alex Krogh Smythe
  * for Introduction-to-Human-Computer-InteractionI course.
+ * Copyright (c) 2018
  *
  */
 
@@ -15,13 +18,15 @@ import android.widget.ExpandableListView;
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
 import aacorp.mypolitician.framework.Politician;
+import aacorp.mypolitician.framework.User;
 import aacorp.mypolitician.patterns.Database;
 
 public class Match extends Activity {
     ExpandableListView expandableListView;
 
-    private Politician politician;
-    private aacorp.mypolitician.framework.User user;
+
+    private Politician politician; //The politician on display
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class Match extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
+        politician = Database.getInstance().fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
         politician = Database.getInstance().fetchRandomPolitician();
 
         expandableListView = (ExpandableListView) findViewById(R.id.eList);

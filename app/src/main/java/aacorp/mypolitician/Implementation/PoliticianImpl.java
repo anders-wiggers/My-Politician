@@ -19,9 +19,10 @@ import aacorp.mypolitician.framework.Politician;
 
 public class PoliticianImpl implements Politician {
 
+    private int uniqueKey;
     private String name;
     private String party;
-    private GeoPoint area;
+    private GeoPoint geoPoint;
     private int bannerId;
     private int profilePictureId;
     private Map<String,StrengthImpl> strength;
@@ -39,7 +40,7 @@ public class PoliticianImpl implements Politician {
 
     @Override
     public GeoPoint getArea() {
-        return area;
+        return geoPoint;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class PoliticianImpl implements Politician {
     }
 
     public void setArea(GeoPoint geoPoint) {
-        this.area = geoPoint;
+        this.geoPoint = geoPoint;
     }
 
     public void setBannerId(int bannerId) {
@@ -86,7 +87,7 @@ public class PoliticianImpl implements Politician {
         return "PoliticianImpl{" +
                 "Name='" + name + '\'' +
                 ", Party='" + party + '\'' +
-                ", Location=" + area +
+                ", Location=" + geoPoint +
                 ", Banner id=" + bannerId +
                 ", Profile picture id=" + profilePictureId +
                 ", Strength=" + strength +
@@ -96,5 +97,10 @@ public class PoliticianImpl implements Politician {
    /* public void like(){
         db.collection("politicians").add(politician);
     }
-    */
+
+    public void dislike(){
+
+    }*/
+
+
 }

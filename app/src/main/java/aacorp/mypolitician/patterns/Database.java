@@ -23,7 +23,6 @@ import java.util.Map;
 
 import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.Implementation.StrengthImpl;
-import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 
 public class Database {
@@ -92,7 +91,7 @@ public class Database {
         politician.setName("lala");
         politician.setArea(new GeoPoint(50,10));
         politician.setBannerId(12345);
-        politician.setParty(Party.LIBERAL_ALLIANCE);
+        politician.setParty("Liberal");
         politician.setProfilePictureId(12345);
 
         StrengthImpl s = new StrengthImpl();
