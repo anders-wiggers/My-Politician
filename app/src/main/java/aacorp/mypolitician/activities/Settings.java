@@ -1,3 +1,8 @@
+/**
+ * @Author Alex Krogh Smythe
+ * Settings class. Will be implemented later
+ */
+
 package aacorp.mypolitician.activities;
 
 import android.os.Bundle;

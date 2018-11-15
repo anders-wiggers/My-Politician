@@ -1,8 +1,6 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
- *
+/**
+ * @Author Alex Krogh Smythe
+ * Simple User class used to create user objects. Mostly used for storing politicians.
  */
 
 package aacorp.mypolitician.framework;

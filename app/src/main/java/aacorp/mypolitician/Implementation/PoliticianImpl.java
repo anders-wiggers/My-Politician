@@ -15,15 +15,13 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Map;
 
-import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 
 public class PoliticianImpl implements Politician {
 
-    private int uniqueKey;
     private String name;
-    private Party party;
-    private GeoPoint geoPoint;
+    private String party;
+    private GeoPoint area;
     private int bannerId;
     private int profilePictureId;
     private Map<String,StrengthImpl> strength;
@@ -37,14 +35,11 @@ public class PoliticianImpl implements Politician {
     }
 
     @Override
-    public int getKey(){return uniqueKey;}
+    public String getParty() { return party; }
 
     @Override
-    public Party getParty() { return party; }
-
-    @Override
-    public GeoPoint getGeoPoint() {
-        return geoPoint;
+    public GeoPoint getArea() {
+        return area;
     }
 
     @Override
@@ -66,12 +61,12 @@ public class PoliticianImpl implements Politician {
         this.name = name;
     }
 
-    public void setParty(Party party) {
+    public void setParty(String party) {
         this.party = party;
     }
 
     public void setArea(GeoPoint geoPoint) {
-        this.geoPoint = geoPoint;
+        this.area = geoPoint;
     }
 
     public void setBannerId(int bannerId) {
@@ -91,7 +86,7 @@ public class PoliticianImpl implements Politician {
         return "PoliticianImpl{" +
                 "Name='" + name + '\'' +
                 ", Party='" + party + '\'' +
-                ", Location=" + geoPoint +
+                ", Location=" + area +
                 ", Banner id=" + bannerId +
                 ", Profile picture id=" + profilePictureId +
                 ", Strength=" + strength +
@@ -101,10 +96,5 @@ public class PoliticianImpl implements Politician {
    /* public void like(){
         db.collection("politicians").add(politician);
     }
-
-    public void dislike(){
-
-    }*/
-
-
+    */
 }

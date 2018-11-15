@@ -11,8 +11,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ExpandableListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
@@ -22,8 +20,7 @@ import aacorp.mypolitician.patterns.Database;
 public class Match extends Activity {
     ExpandableListView expandableListView;
 
-
-    private Politician politician; //The politician on display
+    private Politician politician;
     private aacorp.mypolitician.framework.User user;
 
     @Override
@@ -32,7 +29,6 @@ public class Match extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
-        politician = Database.getInstance().fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
         politician = Database.getInstance().fetchRandomPolitician();
 
         expandableListView = (ExpandableListView) findViewById(R.id.eList);

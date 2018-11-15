@@ -1,8 +1,7 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
- *
+/**
+ * @Author Alex Krogh Smythe
+ * Created a Enumerator for the danish parties. We did this since we expect the parties to be somewhat static
+ * and are not changing for during the project. 
  */
 
 package aacorp.mypolitician.framework;

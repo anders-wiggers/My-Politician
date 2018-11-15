@@ -1,3 +1,9 @@
+/**
+ * @Author Alex Krogh Smythe
+ * This is the implementation of the login functionality with Facebook. The correlating XML layout file is the only one i have
+ * spent time on.
+ */
+
 package aacorp.mypolitician.activities;
 
 import android.app.Activity;
@@ -28,12 +34,14 @@ import java.util.Arrays;
 
 import aacorp.mypolitician.R;
 
+
 public class LogIn extends Activity {
     private CallbackManager mCallbackManager;
     private static final String TAG = "FACELOG";
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private Button mFacebookBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +96,7 @@ public class LogIn extends Activity {
         }
     }
 
-    //Send user to next page
+    //Send user to next page if the login is successful
     public void updateUI(FirebaseUser user){
         Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
 
@@ -105,9 +113,9 @@ public class LogIn extends Activity {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -133,10 +141,4 @@ public class LogIn extends Activity {
                     }
                 });
     }
-
-    ///////////EMAIL AND PASSWORDAUTHENTICATION////////////////
-
-
-
-
 }
