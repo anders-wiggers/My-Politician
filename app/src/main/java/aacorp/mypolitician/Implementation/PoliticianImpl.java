@@ -15,14 +15,13 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Map;
 
-import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 
 public class PoliticianImpl implements Politician {
 
     private int uniqueKey;
     private String name;
-    private Party party;
+    private String party;
     private GeoPoint geoPoint;
     private int bannerId;
     private int profilePictureId;
@@ -37,13 +36,10 @@ public class PoliticianImpl implements Politician {
     }
 
     @Override
-    public int getKey(){return uniqueKey;}
+    public String getParty() { return party; }
 
     @Override
-    public Party getParty() { return party; }
-
-    @Override
-    public GeoPoint getGeoPoint() {
+    public GeoPoint getArea() {
         return geoPoint;
     }
 
@@ -66,7 +62,7 @@ public class PoliticianImpl implements Politician {
         this.name = name;
     }
 
-    public void setParty(Party party) {
+    public void setParty(String party) {
         this.party = party;
     }
 
