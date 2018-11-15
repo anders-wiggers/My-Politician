@@ -11,13 +11,15 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Map;
 
+import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 
 public class PoliticianImpl implements Politician {
 
+    private int uniqueKey;
     private String name;
-    private String party;
-    private GeoPoint area;
+    private Party party;
+    private GeoPoint geoPoint;
     private int bannerId;
     private int profilePictureId;
     private Map<String,StrengthImpl> strength;
@@ -31,13 +33,14 @@ public class PoliticianImpl implements Politician {
     }
 
     @Override
-    public String getParty() {
-        return party;
-    }
+    public int getKey(){return uniqueKey;}
 
     @Override
-    public GeoPoint getArea() {
-        return area;
+    public Party getParty() { return party; }
+
+    @Override
+    public GeoPoint getGeoPoint() {
+        return geoPoint;
     }
 
     @Override
@@ -59,12 +62,12 @@ public class PoliticianImpl implements Politician {
         this.name = name;
     }
 
-    public void setParty(String party) {
+    public void setParty(Party party) {
         this.party = party;
     }
 
-    public void setArea(GeoPoint area) {
-        this.area = area;
+    public void setArea(GeoPoint geoPoint) {
+        this.geoPoint = geoPoint;
     }
 
     public void setBannerId(int bannerId) {
@@ -82,12 +85,22 @@ public class PoliticianImpl implements Politician {
     @Override
     public String toString() {
         return "PoliticianImpl{" +
-                "name='" + name + '\'' +
-                ", party='" + party + '\'' +
-                ", area=" + area +
-                ", bannerId=" + bannerId +
-                ", profilePictureId=" + profilePictureId +
-                ", strength=" + strength +
+                "Name='" + name + '\'' +
+                ", Party='" + party + '\'' +
+                ", Location=" + geoPoint +
+                ", Banner id=" + bannerId +
+                ", Profile picture id=" + profilePictureId +
+                ", Strength=" + strength +
                 '}';
     }
+
+   /* public void like(){
+        db.collection("politicians").add(politician);
+    }
+
+    public void dislike(){
+
+    }*/
+
+
 }

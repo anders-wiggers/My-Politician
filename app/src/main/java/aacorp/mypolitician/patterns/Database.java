@@ -20,6 +20,7 @@ import java.util.Map;
 
 import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.Implementation.StrengthImpl;
+import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 
 public class Database {
@@ -69,7 +70,7 @@ public class Database {
         politician.setName("lala");
         politician.setArea(new GeoPoint(50,10));
         politician.setBannerId(12345);
-        politician.setParty("Svendborg Partiet");
+        politician.setParty(Party.LIBERAL_ALLIANCE);
         politician.setProfilePictureId(12345);
 
         StrengthImpl s = new StrengthImpl();
@@ -80,7 +81,7 @@ public class Database {
         s.setText("ayyy");
         sl.put("def",s);
 
-        s1.setText("I belive in the Power");
+        s1.setText("I believe in the Power");
         s1.setPercent(50);
         sl.put("wor",s1);
 
@@ -89,4 +90,5 @@ public class Database {
         System.out.println(politician.toString());
         db.collection("politicians").add(politician);
     }
+
 }

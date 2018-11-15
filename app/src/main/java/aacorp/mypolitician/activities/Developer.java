@@ -31,6 +31,11 @@ public class Developer extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void Settings(View view){
+        Intent intent = new Intent(this,Settings.class);
+        startActivity(intent);
+    }
+
     public void match(View view){
         Intent intent = new Intent(this, aacorp.mypolitician.activities.Match.class);
         startActivity(intent);

@@ -1,9 +1,7 @@
-/**
- * Match is the main Activity
- *
- *  @author Anders Bille Wiggers
- *  for Introduction-to-Human-Computer-InteractionI course.
- *  Copyright (c) 2018.
+/*
+ * Copyright (c) 2018.
+ * @author Anders Bille Wiggers
+ * for Introduction-to-Human-Computer-InteractionI course.
  *
  */
 
@@ -13,6 +11,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
@@ -24,6 +24,7 @@ public class Match extends Activity {
 
 
     private Politician politician; //The politician on display
+    private aacorp.mypolitician.framework.User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,28 @@ public class Match extends Activity {
         setContentView(R.layout.activity_match);
 
         politician = Database.getInstance().fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
+        politician = Database.getInstance().fetchRandomPolitician();
 
         expandableListView = (ExpandableListView) findViewById(R.id.eList);
 
-        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician); //Create custom adapter
-        expandableListView.setAdapter(adapter); //Set the adapter for the listView.
+        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
+        expandableListView.setAdapter(adapter);
     }
+
+    public void fetchNewPolitician(){
+        politician = Database.getInstance().fetchRandomPolitician();
+    }
+
+
+    public void like(Politician politician){
+        user.likedPoliticians.add(politician);
+    }
+
+    public void dislike(){
+        fetchNewPolitician();
+    }
+
+
 
 
 }

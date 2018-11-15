@@ -15,11 +15,13 @@ import aacorp.mypolitician.Implementation.StrengthImpl;
 
 public interface Politician {
 
+    int getKey();
+
     String getName();
 
-    String getParty();
+    Enum getParty();
 
-    GeoPoint getArea();
+    GeoPoint getGeoPoint();
 
     int getBannerId();
 
