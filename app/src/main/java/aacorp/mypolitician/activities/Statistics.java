@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2018.
+ * @author Anders Bille Wiggers
+ * for Introduction-to-Human-Computer-InteractionI course.
+ *
+ */
+
 package aacorp.mypolitician.activities;
 
 import android.os.Bundle;
@@ -9,12 +16,12 @@ import android.view.View;
 
 import aacorp.mypolitician.R;
 
-public class Settings extends AppCompatActivity {
+public class Statistics extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_statistics);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

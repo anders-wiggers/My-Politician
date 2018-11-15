@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018.
+  ~ @author Anders Bille Wiggers
+  ~ for Introduction-to-Human-Computer-InteractionI course.
+  ~
+  -->
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.Settings">
+    tools:context=".activities.Statistics">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,27 +27,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_settings" />
-
-    <Switch
-        android:id="@+id/enablenotificationsswitch"
-        android:layout_width="342dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="24dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="87dp"
-        tools:text="Allow Notifications" />
-
-    <Switch
-        android:id="@+id/localPoliticianSwitch"
-        android:layout_width="342dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="24dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="39dp"
-        tools:text="Local politicians only" />
+    <include layout="@layout/content_statistics" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

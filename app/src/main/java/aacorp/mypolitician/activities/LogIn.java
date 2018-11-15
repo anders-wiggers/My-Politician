@@ -2,9 +2,8 @@ package aacorp.mypolitician.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -15,12 +14,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -28,7 +23,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 
 import java.util.Arrays;
 
@@ -38,6 +32,7 @@ public class LogIn extends Activity {
     private CallbackManager mCallbackManager;
     private static final String TAG = "FACELOG";
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private Button mFacebookBtn;
 
     @Override
@@ -89,12 +84,12 @@ public class LogIn extends Activity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            updateUI();
+            updateUI(currentUser);
         }
     }
 
     //Send user to next page
-    public void updateUI(){
+    public void updateUI(FirebaseUser user){
         Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
 
         Intent MatchIntent = new Intent(LogIn.this, Match.class);
@@ -125,7 +120,7 @@ public class LogIn extends Activity {
 
                             mFacebookBtn.setEnabled(true);
 
-                            updateUI();
+                            updateUI(user);
 
                         } else {
                             // If sign in fails, display a message to the user.

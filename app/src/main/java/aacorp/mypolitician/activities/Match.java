@@ -11,8 +11,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ExpandableListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
@@ -22,8 +20,8 @@ import aacorp.mypolitician.patterns.Database;
 public class Match extends Activity {
     ExpandableListView expandableListView;
 
-
     private Politician politician;
+    private aacorp.mypolitician.framework.User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +30,27 @@ public class Match extends Activity {
         setContentView(R.layout.activity_match);
 
         politician = Database.getInstance().fetchRandomPolitician();
-        ProgressBar pb = findViewById(R.id.progressBar);
-        pb.setProgress(politician.getStrength().get("def").getPercent());
-
-        TextView tw = findViewById(R.id.textView2);
-        tw.setText(politician.getStrength().get("def").getText());
 
         expandableListView = (ExpandableListView) findViewById(R.id.eList);
 
         ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
         expandableListView.setAdapter(adapter);
     }
+
+    public void fetchNewPolitician(){
+        politician = Database.getInstance().fetchRandomPolitician();
+    }
+
+
+    public void like(Politician politician){
+        user.likedPoliticians.add(politician);
+    }
+
+    public void dislike(){
+        fetchNewPolitician();
+    }
+
+
 
 
 }
