@@ -52,7 +52,7 @@ public class Developer extends AppCompatActivity {
         Log.e(log,politician.getName()+ " has following strenght: " + politician.getStrength().get("def").getPercent());
 
 
-        //Database.getInstance().createPolitician();
+        Database.getInstance().createPolitician();
 
     }
 }

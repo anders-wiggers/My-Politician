@@ -13,9 +13,11 @@
 package aacorp.mypolitician.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -88,8 +90,15 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
+        LinearLayout linearLayout = new LinearLayout(context);
         ProgressBar pb = new ProgressBar(context,null,android.R.attr.progressBarStyleHorizontal);
         pb.setProgress(Integer.parseInt(groupNames[groupPosition]));
+
+        pb.getProgressDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN); //Setting color
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 60);
+        pb.setLayoutParams(params );
+
+
         return pb;
     }
 

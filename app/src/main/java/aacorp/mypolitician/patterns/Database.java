@@ -12,6 +12,7 @@ package aacorp.mypolitician.patterns;
 
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -24,11 +25,13 @@ import java.util.Map;
 import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.Implementation.StrengthImpl;
 import aacorp.mypolitician.framework.Politician;
+import aacorp.mypolitician.framework.User;
 
 public class Database {
     private static Database instance;  //Singleton instance
     private FirebaseFirestore db;   //Firestore instance
     private List<PoliticianImpl> politicians = new ArrayList<>(); //Politicians fetched from the database
+    private String uid;
 
 
     protected Database(){
@@ -88,22 +91,22 @@ public class Database {
      */
     public void createPolitician(){
         PoliticianImpl politician = new PoliticianImpl();
-        politician.setName("lala");
-        politician.setArea(new GeoPoint(50,10));
-        politician.setBannerId(12345);
-        politician.setParty("Liberal");
-        politician.setProfilePictureId(12345);
+        politician.setName("Lars Thomas");
+        politician.setArea(new GeoPoint(51,10));
+        politician.setBannerId(41601);
+        politician.setParty("Alternativet");
+        politician.setProfilePictureId(52351);
 
         StrengthImpl s = new StrengthImpl();
         StrengthImpl s1 = new StrengthImpl();
         Map<String,StrengthImpl> sl = new HashMap<>();
 
-        s.setPercent(20);
-        s.setText("ayyy");
+        s.setPercent(10);
+        s.setText("People should chill");
         sl.put("def",s);
 
-        s1.setText("I believe in the Power");
-        s1.setPercent(50);
+        s1.setText("I think EU is great man!");
+        s1.setPercent(90);
         sl.put("wor",s1);
 
         politician.setStrength(sl);
@@ -112,4 +115,21 @@ public class Database {
         db.collection("politicians").add(politician);
     }
 
+    /**
+     * Set the user id from the current session, retrieved from firebase auth with facebook.
+     * @param UID The user id retrieved from user authentication
+     */
+    public void setUID(final String UID) {
+        this.uid = UID;
+        db.collection("users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.get(UID)!=null){
+                    User u = new User(UID,"eb");
+                    db.collection("users").add(u);
+                }
+            }
+        });
+
+    }
 }

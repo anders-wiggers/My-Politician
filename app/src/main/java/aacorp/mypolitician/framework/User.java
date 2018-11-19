@@ -1,6 +1,7 @@
-/*
+/**
  * Copyright (c) 2018.
  * @author Anders Bille Wiggers
+ * @auther Alex Krogh Smythe
  * for Introduction-to-Human-Computer-InteractionI course.
  *
  */
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    public String username;
-    public String email;
-    public ArrayList<Politician> likedPoliticians;
+    private String username;
+    private String email;
+    private ArrayList<Politician> likedPoliticians;
 
     public User(String username, String email){
         this.username = username;

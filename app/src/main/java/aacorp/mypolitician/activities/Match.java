@@ -49,11 +49,13 @@ public class Match extends Activity {
 
 
     public void like(Politician politician){
-        user.likedPoliticians.add(politician);
+        //user.likedPoliticians.add(politician);
+        //TODO fix liked politician
     }
 
     public void dislike(){
         fetchNewPolitician();
+        //TODO find politician that has not been shown before
     }
 
 

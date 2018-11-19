@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 import aacorp.mypolitician.R;
+import aacorp.mypolitician.patterns.Database;
 
 public class LogIn extends Activity {
     private CallbackManager mCallbackManager;
@@ -59,6 +60,7 @@ public class LogIn extends Activity {
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook:onSuccess:" + loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
+                        Database.getInstance().setUID(mAuth.getCurrentUser().getUid());
                     }
 
                     @Override
