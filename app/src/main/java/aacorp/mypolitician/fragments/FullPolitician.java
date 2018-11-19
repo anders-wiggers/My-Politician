@@ -1,4 +1,4 @@
-/*
+/**
  *
  * @author Anders Bille Wiggers
  * @author Alex Krogh Smythe

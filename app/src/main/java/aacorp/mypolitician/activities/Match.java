@@ -1,5 +1,6 @@
 /**
- *
+ *  Class is the activity for the main match screen. fethces new politican
+ *  from Database singleton. and present the data to the user
  *
  * @author Anders Bille Wiggers
  * @author Alex Krogh Smythe
@@ -39,7 +40,7 @@ public class Match extends Activity {
 
         expandableListView = (ExpandableListView) findViewById(R.id.eList);
 
-        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
+        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician); //TODO fix the adapter
         expandableListView.setAdapter(adapter);
     }
 

@@ -1,3 +1,13 @@
+/**
+ *  Developer class NOT FOR user interaction
+ *
+ * @author Anders Bille Wiggers
+ * @author Alex Krogh Smythe
+ * for Introduction-to-Human-Computer-InteractionI course.
+ * Copyright (c) 2018
+ *
+ */
+
 package aacorp.mypolitician.activities;
 
 import android.content.Intent;
