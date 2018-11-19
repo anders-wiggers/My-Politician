@@ -1,7 +1,7 @@
-/*
- * Copyright (c) 2018.
- * @author Anders Bille Wiggers
- * for Introduction-to-Human-Computer-InteractionI course.
+/**
+ * @Author Alex Krogh Smythe
+ * This is the statistics class. After implementing our main features of
+ * fetching and like/disliking the politicians we will implement a way to show statistics
  *
  */
 
