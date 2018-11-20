@@ -26,6 +26,7 @@ public class PoliticianImpl implements Politician {
     private int bannerId;
     private int profilePictureId;
     private Map<String,StrengthImpl> strength;
+    private String id;
 
     public PoliticianImpl(){
     }
@@ -56,6 +57,11 @@ public class PoliticianImpl implements Politician {
     @Override
     public Map<String,StrengthImpl> getStrength() {
         return strength;
+    }
+    
+    @Override
+    public String getId(){
+        return id;
     }
 
     public void setName(String name) {

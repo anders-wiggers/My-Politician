@@ -45,4 +45,6 @@ public interface Politician {
      */
     Map<String,StrengthImpl> getStrength();
 
+    String getId();
+
 }

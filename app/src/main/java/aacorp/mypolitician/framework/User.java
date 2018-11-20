@@ -14,13 +14,25 @@ import java.util.List;
 public class User {
     private String username;
     private String email;
-    private ArrayList<Politician> likedPoliticians;
+    private ArrayList<String> likedPoliticians;
+    private ArrayList<String> seenPoliticians;
 
-    public User(String username, String email){
+    public User(){ }
+
+    public void setUsername(String username) {
         this.username = username;
-        this.email = email;
-        likedPoliticians = new ArrayList<>();
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setLikedPoliticians(ArrayList<String> likedPoliticians) {
+        this.likedPoliticians = likedPoliticians;
+    }
+
+    public void setSeenPoliticians(ArrayList<String> seenPoliticians) {
+        this.seenPoliticians = seenPoliticians;
     }
 
     public String getUsername() {
@@ -31,12 +43,20 @@ public class User {
         return email;
     }
 
-    public List<Politician> getLikedPoliticians(){
+    public List<String> getLikedPoliticians(){
         return likedPoliticians;
     }
 
-    public void addLikedPolitician(Politician politician){
-        likedPoliticians.add(politician);
+    public List<String> getSeenPoliticians() {
+        return seenPoliticians;
+    }
+
+    public void addLikedPolitician(String id){
+        likedPoliticians.add(id);
+    }
+
+    public void addSeenPolitician(String id){
+        seenPoliticians.add(id);
     }
 
 

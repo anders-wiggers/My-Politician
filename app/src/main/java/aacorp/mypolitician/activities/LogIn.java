@@ -42,6 +42,7 @@ public class LogIn extends Activity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private Button mFacebookBtn;
+    private Database db = Database.getInstance();
 
 
     @Override
@@ -68,7 +69,6 @@ public class LogIn extends Activity {
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook:onSuccess:" + loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
-                        Database.getInstance().setUID(mAuth.getCurrentUser().getUid());
                     }
 
                     @Override
@@ -93,6 +93,7 @@ public class LogIn extends Activity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+
         if (currentUser != null) {
             updateUI(currentUser);
         }
@@ -101,6 +102,8 @@ public class LogIn extends Activity {
     //Send user to next page if the login is successful
     public void updateUI(FirebaseUser user){
         Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
+
+        db.setUser(user);
 
         Intent MatchIntent = new Intent(LogIn.this, Match.class);
         startActivity(MatchIntent);

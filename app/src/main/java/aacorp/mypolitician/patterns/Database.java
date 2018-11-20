@@ -11,7 +11,13 @@
 package aacorp.mypolitician.patterns;
 
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
@@ -19,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +38,8 @@ public class Database {
     private static Database instance;  //Singleton instance
     private FirebaseFirestore db;   //Firestore instance
     private List<PoliticianImpl> politicians = new ArrayList<>(); //Politicians fetched from the database
-    private String uid;
-
+    private User user = null;
+    private boolean AppReady;
 
     protected Database(){
         initialize();
@@ -115,21 +122,88 @@ public class Database {
         db.collection("politicians").add(politician);
     }
 
+
     /**
-     * Set the user id from the current session, retrieved from firebase auth with facebook.
-     * @param UID The user id retrieved from user authentication
+     * Method for generating user in the database, If the user exist the user will be
+     * pulled and inserted into the user object, else the user will be created and
+     * pushed to the firestore.
+     * @param firebaseUser Need a firebase User to pull authentication from.
      */
-    public void setUID(final String UID) {
-        this.uid = UID;
-        db.collection("users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    public void setUser(final FirebaseUser firebaseUser){
+        db.collection("users").document(firebaseUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.get(UID)!=null){
-                    User u = new User(UID,"eb");
-                    db.collection("users").add(u);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if(documentSnapshot.get("username")==null){
+                    User user1 = new User();
+                    user1.setUsername(firebaseUser.getUid());
+                    user1.setEmail(firebaseUser.getEmail());
+                    user1.setLikedPoliticians(new ArrayList<String>());
+                    user1.setSeenPoliticians(new ArrayList<String>());
+                    db.collection("users").document(user1.getUsername()).set(user1);
+                    user = user1;
+                    Log.e("Should","Have been here");
                 }
+                else{
+                    user = documentSnapshot.toObject(User.class);
+                }
+                AppReady = true;
             }
         });
+    }
+
+    public boolean isAppReady() {
+        return AppReady;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+
+    /**
+     * add a politician a user has seen to the users list, so that
+     * the user wont get the same politicians twice
+     * @param id the ID of the politician to be added
+     */
+    public void addSeenToUser(String id){
+        user.addSeenPolitician(id);
+        db.collection("users").document(user.getUsername()).set(user);
+    }
+
+    public void addLikeToUser(String id) {
+        user.addLikedPolitician(id);
+        db.collection("users").document(user.getUsername()).set(user);
 
     }
+
+    /**
+     * Readys the index of politicians for feching by removing politicians that has been
+     * like or dislike from the rest.
+     */
+    public void readyIndex(){
+        List<String> ids = new ArrayList<>();
+        Iterator<PoliticianImpl> i = politicians.iterator();
+        ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
+        while(i.hasNext()) {
+            Politician p = i.next();
+            for (String id : ids) {
+                if (id.equals(p.getId())) {
+                    i.remove();
+                }
+            }
+        }
+    }
+
+    /**
+     * check if there is any politicians left
+     * @return boolean true/false if any politicians is left on the list.
+     */
+    public boolean hasNextPolitician(){
+        readyIndex();
+        boolean hasNext = politicians.size()>0;
+        if(hasNext) return true;
+        return false;
+    }
+
 }
