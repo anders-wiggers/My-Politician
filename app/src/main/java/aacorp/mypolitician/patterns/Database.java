@@ -11,6 +11,7 @@
 package aacorp.mypolitician.patterns;
 
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -31,6 +32,7 @@ import java.util.Map;
 
 import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.Implementation.StrengthImpl;
+import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.User;
 
@@ -40,6 +42,7 @@ public class Database {
     private List<PoliticianImpl> politicians = new ArrayList<>(); //Politicians fetched from the database
     private User user = null;
     private boolean AppReady;
+    private List<Party> parties = new ArrayList<>();//Parties fetches from the database
 
     protected Database(){
         initialize();
@@ -72,6 +75,13 @@ public class Database {
                 politicians = queryDocumentSnapshots.toObjects(PoliticianImpl.class);
             }
         });
+
+        db.collection("parties").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                parties = queryDocumentSnapshots.toObjects(Party.class);
+            }
+        });
     }
 
     /**
@@ -90,6 +100,13 @@ public class Database {
     public Politician fetchRandomPolitician(){
         int rngPolitician = (int) Math.floor(Math.random() * Math.floor(politicians.size()));
         return politicians.get(rngPolitician);
+    }
+
+    public void createParty(){
+        Party party = new Party();
+        party.setName("Alternativet");
+        party.setColor(Color.GREEN);
+        db.collection("parties").add(party);
     }
 
     /**
@@ -160,6 +177,9 @@ public class Database {
         return user;
     }
 
+    public List<Party> getParties() {
+        return parties;
+    }
 
     /**
      * add a politician a user has seen to the users list, so that
@@ -204,6 +224,10 @@ public class Database {
         boolean hasNext = politicians.size()>0;
         if(hasNext) return true;
         return false;
+    }
+
+    public List<PoliticianImpl> getPoliticians(){
+        return politicians;
     }
 
 }

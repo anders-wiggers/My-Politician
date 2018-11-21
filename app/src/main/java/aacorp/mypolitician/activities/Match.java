@@ -63,7 +63,7 @@ public class Match extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(Match.this, "we'oiut of politicians", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Match.this, "we're out of politicians", Toast.LENGTH_LONG).show();
                 }
             });
         }

@@ -13,11 +13,9 @@ package aacorp.mypolitician.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.patterns.Database;
 
@@ -54,7 +52,7 @@ public class Developer extends AppCompatActivity {
     public void debug(View view){
         TextView textView = findViewById(R.id.textView);
 
-
+        /*
         PoliticianImpl politician = (PoliticianImpl) Database.getInstance().fetchDummy();
         textView.setText(Database.getInstance().fetchRandomPolitician().getName());
 
@@ -63,6 +61,14 @@ public class Developer extends AppCompatActivity {
 
 
         Database.getInstance().createPolitician();
+        */
 
+        Database.getInstance().createParty();
     }
+
+    public void statistics(View view){
+        Intent intent = new Intent(this,Statistics.class);
+        startActivity(intent);
+    }
+
 }
