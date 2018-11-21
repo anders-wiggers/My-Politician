@@ -75,7 +75,11 @@ public class Match extends Activity {
         if(db.hasNextPolitician()){
             db.addLikeToUser(politician.getId());
         }
+        fetchNewPolitician();
         //TODO add full politician view when liked
+    }
+
+    public void showLikedPolitician(){
     }
 
     public void dislike(View view){

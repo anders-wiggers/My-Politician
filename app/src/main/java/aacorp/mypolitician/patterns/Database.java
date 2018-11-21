@@ -183,8 +183,8 @@ public class Database {
      */
     public void readyIndex(){
         List<String> ids = new ArrayList<>();
+        ids.addAll(user.getSeenPoliticians());
         Iterator<PoliticianImpl> i = politicians.iterator();
-        ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
         while(i.hasNext()) {
             Politician p = i.next();
             for (String id : ids) {

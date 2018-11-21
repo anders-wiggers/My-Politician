@@ -13,20 +13,26 @@
 package aacorp.mypolitician.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+
+import aacorp.mypolitician.R;
+import aacorp.mypolitician.framework.Constants;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.Strength;
 
 public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
 
     private final Politician match; //The Politician
+
+    private LayoutInflater inflater;
+
 
     String[] groupNames; //Names of the Dropdowns
     String[][] childNames; //Content of the Dropdowns
@@ -39,6 +45,8 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
 
         groupNames = new String[match.getStrength().size()];
         childNames = new String[match.getStrength().size()][1];
+
+        inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         int i=0;
         for(Strength s : match.getStrength().values()){         //retrieving the text and percent from the politicians strengths
@@ -90,6 +98,7 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
+        /*
         LinearLayout linearLayout = new LinearLayout(context);
         ProgressBar pb = new ProgressBar(context,null,android.R.attr.progressBarStyleHorizontal);
         pb.setProgress(Integer.parseInt(groupNames[groupPosition]));
@@ -97,9 +106,26 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
         pb.getProgressDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN); //Setting color
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 60);
         pb.setLayoutParams(params );
+        */
+        if(view == null)
+        {
+            view=inflater.inflate(R.layout.politician_bar, null);
+        }
 
+        //GET GROUP/TEAM ITEM
+        //SET GROUP NAME
+        ImageView img=(ImageView) view.findViewById(R.id.strengthImage);
+        RoundCornerProgressBar pb = view.findViewById(R.id.strengthBar);
+        pb.setProgress(Integer.parseInt(groupNames[groupPosition]));
 
-        return pb;
+        //SET IMAGE
+        String icon = (String) match.getStrength().keySet().toArray()[groupPosition];
+        if(icon.equals(Constants.DEFENCE_ICON)) img.setImageResource(R.drawable.def);
+        if(icon.equals(Constants.WORLD_ICON)) img.setImageResource(R.drawable.wor);
+        if(icon.equals(Constants.ENVIRONMENT_ICON)) img.setImageResource(R.drawable.env);
+        if(icon.equals(Constants.MONEY_ICON)) img.setImageResource(R.drawable.mon);
+
+        return view;
     }
 
     /**
