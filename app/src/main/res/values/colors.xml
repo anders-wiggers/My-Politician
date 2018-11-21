@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#2c3e50</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="strengthBarProg">#B2E380</color>
+    <color name="strengthBarBg">#E9EAEC</color>
 </resources>

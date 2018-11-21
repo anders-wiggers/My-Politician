@@ -11,7 +11,7 @@ package aacorp.mypolitician.Implementation;
 
 import aacorp.mypolitician.framework.Strength;
 
-public class StrengthImpl implements Strength {
+public class StrengthImpl implements Strength{
     private int percent;
     private String text;
 
