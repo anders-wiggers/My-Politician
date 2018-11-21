@@ -75,7 +75,7 @@ public class Statistics extends AppCompatActivity{
 
     public void addPartyEntriesToPercentage() {
         List<String> politicianIDs = new ArrayList<>();
-        Iterator<PoliticianImpl> i = (Iterator<PoliticianImpl>) db.getPoliticians();
+        Iterator<PoliticianImpl> i = db.getPoliticians().iterator();
         politicianIDs.addAll(db.getUser().getLikedPoliticians());
         while (i.hasNext()) {
             Politician p = i.next();

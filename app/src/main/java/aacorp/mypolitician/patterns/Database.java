@@ -203,7 +203,7 @@ public class Database {
      */
     public void readyIndex(){
         List<String> ids = new ArrayList<>();
-        ids.addAll(user.getSeenPoliticians());
+        ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
         Iterator<PoliticianImpl> i = politicians.iterator();
         while(i.hasNext()) {
             Politician p = i.next();
