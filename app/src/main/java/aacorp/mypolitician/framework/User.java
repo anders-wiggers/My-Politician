@@ -15,8 +15,8 @@ import java.util.List;
 public class User {
     private String username;
     private String email;
-    private ArrayList<String> likedPoliticians;
-    private ArrayList<String> seenPoliticians;
+    private ArrayList<String> likedPoliticians = null;
+    private ArrayList<String> seenPoliticians = null;
 
     public User(){ }
 

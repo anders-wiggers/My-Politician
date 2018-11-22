@@ -3,6 +3,7 @@
  *  Firestore.
  *
  *  @author Anders Bille Wiggers
+ *  @autho
  *  for Introduction-to-Human-Computer-InteractionI course.
  *  Copyright (c) 2018.
  *
@@ -104,6 +105,7 @@ public class Database {
         Party party = new Party();
         party.setName("Alternativet");
         party.setColor(Color.GREEN);
+        party.setColorOfBlock(Color.BLUE);
         db.collection("parties").add(party);
     }
 
@@ -233,10 +235,6 @@ public class Database {
         boolean hasNext = politicians.size()>0;
         if(hasNext) return true;
         return false;
-    }
-
-    public List<PoliticianImpl> getPoliticians(){
-        return politicians;
     }
 
     public List<PoliticianImpl> getPoliticiansFixed(){
