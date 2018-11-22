@@ -41,10 +41,20 @@ public interface Politician {
     int getProfilePictureId();
 
     /**
+     * @return Should return boolean base on politicians gender.
+     */
+    boolean isMale();
+
+    /**
      * @return Should return a politicians strength as a List
      */
     Map<String,StrengthImpl> getStrength();
 
+    /**
+     * @return Should return the id of a politician
+     */
     String getId();
+
+
 
 }

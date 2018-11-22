@@ -13,6 +13,7 @@ package aacorp.mypolitician.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ExpandableListView;
@@ -52,6 +53,7 @@ public class Match extends Activity {
     public void fetchNewPolitician(){
         if(db.hasNextPolitician()) {
             politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
+            Log.e("wew",politician.isMale()+"");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

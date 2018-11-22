@@ -1,5 +1,6 @@
 /**
  * @Author Alex Krogh Smythe
+ * @auther Anders Bille Wiggers
  * This is the statistics class. After implementing our main features of
  * fetching and like/disliking the politicians we will implement a way to show statistics
  *
@@ -75,7 +76,7 @@ public class Statistics extends AppCompatActivity{
 
     public void addPartyEntriesToPercentage() {
         List<String> politicianIDs = new ArrayList<>();
-        Iterator<PoliticianImpl> i = db.getPoliticians().iterator();
+        Iterator<PoliticianImpl> i = db.getPoliticiansFixed().iterator();
         politicianIDs.addAll(db.getUser().getLikedPoliticians());
         while (i.hasNext()) {
             Politician p = i.next();

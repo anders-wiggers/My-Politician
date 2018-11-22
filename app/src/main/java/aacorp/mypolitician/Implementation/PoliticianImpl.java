@@ -19,7 +19,6 @@ import aacorp.mypolitician.framework.Politician;
 
 public class PoliticianImpl implements Politician {
 
-    private int uniqueKey;
     private String name;
     private String party;
     private GeoPoint geoPoint;
@@ -27,6 +26,7 @@ public class PoliticianImpl implements Politician {
     private int profilePictureId;
     private Map<String,StrengthImpl> strength;
     private String id;
+    private boolean isMale;
 
     public PoliticianImpl(){
     }
@@ -55,6 +55,11 @@ public class PoliticianImpl implements Politician {
     }
 
     @Override
+    public boolean isMale() {
+        return isMale;
+    }
+
+    @Override
     public Map<String,StrengthImpl> getStrength() {
         return strength;
     }
@@ -62,6 +67,10 @@ public class PoliticianImpl implements Politician {
     @Override
     public String getId(){
         return id;
+    }
+
+    public void setGender(boolean gender) {
+        this.isMale = gender;
     }
 
     public void setName(String name) {
@@ -88,6 +97,10 @@ public class PoliticianImpl implements Politician {
         this.strength = strength;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "PoliticianImpl{" +
@@ -100,13 +113,6 @@ public class PoliticianImpl implements Politician {
                 '}';
     }
 
-   /* public void like(){
-        db.collection("politicians").add(politician);
-    }
-
-    public void dislike(){
-
-    }*/
 
 
 }

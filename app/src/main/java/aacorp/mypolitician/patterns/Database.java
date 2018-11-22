@@ -13,12 +13,12 @@ package aacorp.mypolitician.patterns;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
@@ -40,6 +40,7 @@ public class Database {
     private static Database instance;  //Singleton instance
     private FirebaseFirestore db;   //Firestore instance
     private List<PoliticianImpl> politicians = new ArrayList<>(); //Politicians fetched from the database
+    private List<PoliticianImpl> politiciansFixed = new ArrayList<>();
     private User user = null;
     private boolean AppReady;
     private List<Party> parties = new ArrayList<>();//Parties fetches from the database
@@ -73,6 +74,7 @@ public class Database {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 politicians = queryDocumentSnapshots.toObjects(PoliticianImpl.class);
+                politiciansFixed = queryDocumentSnapshots.toObjects(PoliticianImpl.class);
             }
         });
 
@@ -114,12 +116,17 @@ public class Database {
      * to the Firestore database.
      */
     public void createPolitician(){
+        DocumentReference ref = db.collection("politicians").document();
+        String myId = ref.getId();
+
         PoliticianImpl politician = new PoliticianImpl();
         politician.setName("Lars Thomas");
         politician.setArea(new GeoPoint(51,10));
         politician.setBannerId(41601);
         politician.setParty("Alternativet");
         politician.setProfilePictureId(52351);
+        politician.setGender(true);
+        politician.setId(myId);
 
         StrengthImpl s = new StrengthImpl();
         StrengthImpl s1 = new StrengthImpl();
@@ -136,7 +143,9 @@ public class Database {
         politician.setStrength(sl);
 
         System.out.println(politician.toString());
-        db.collection("politicians").add(politician);
+
+
+        db.collection("politicians").document(myId).set(politician);
     }
 
 
@@ -159,7 +168,6 @@ public class Database {
                     user1.setSeenPoliticians(new ArrayList<String>());
                     db.collection("users").document(user1.getUsername()).set(user1);
                     user = user1;
-                    Log.e("Should","Have been here");
                 }
                 else{
                     user = documentSnapshot.toObject(User.class);
@@ -228,6 +236,10 @@ public class Database {
 
     public List<PoliticianImpl> getPoliticians(){
         return politicians;
+    }
+
+    public List<PoliticianImpl> getPoliticiansFixed(){
+        return politiciansFixed;
     }
 
 }
