@@ -35,6 +35,8 @@ public class LikedPoliticianListAdapter extends ArrayAdapter<PoliticianImpl> {
 
         ((TextView) convertView.findViewById(R.id.listPoliticianName)).setText(getItem(position).getName());
 
+
+
         return convertView;
     }
 }

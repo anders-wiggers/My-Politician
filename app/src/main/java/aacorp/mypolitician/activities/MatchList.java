@@ -33,7 +33,6 @@ public class MatchList extends AppCompatActivity {
         List<PoliticianImpl> prebList = Database.getInstance().getPoliticiansFixed();
         List<String> likedFromUser = Database.getInstance().getUser().getLikedPoliticians();
 
-
         for(PoliticianImpl p : prebList){
             for(String s : likedFromUser){
                 if(p.getId().equals(s)){

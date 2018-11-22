@@ -1,6 +1,7 @@
-/*
+/**
  * Copyright (c) 2018.
  * @author Anders Bille Wiggers & Alex Krogh Smythe
+ * @auther Alex Krogh Smythe
  * for Introduction-to-Human-Computer-InteractionI course.
  *
  */
