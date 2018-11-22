@@ -125,7 +125,7 @@ public class Database {
         politician.setBannerId(41601);
         politician.setParty("Alternativet");
         politician.setProfilePictureId(52351);
-        politician.setGender(true);
+        politician.setIsMale(true);
         politician.setId(myId);
 
         StrengthImpl s = new StrengthImpl();
@@ -203,6 +203,11 @@ public class Database {
         user.addLikedPolitician(id);
         db.collection("users").document(user.getUsername()).set(user);
 
+    }
+
+    public void removeLikeFromUser(String id){
+        user.removeLikedPolitician(id);
+        db.collection("users").document(user.getUsername()).set(user);
     }
 
     /**

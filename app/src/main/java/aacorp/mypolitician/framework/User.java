@@ -9,6 +9,7 @@
 package aacorp.mypolitician.framework;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class User {
@@ -60,5 +61,14 @@ public class User {
     }
 
 
+    public void removeLikedPolitician(String id) {
+        addSeenPolitician(id);
 
+        Iterator<String> i = likedPoliticians.iterator();
+        while(i.hasNext()){
+            if(id.equals(i.next())){
+                i.remove();
+            }
+        }
+    }
 }

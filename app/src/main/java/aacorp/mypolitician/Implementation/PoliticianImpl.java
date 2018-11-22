@@ -55,7 +55,7 @@ public class PoliticianImpl implements Politician {
     }
 
     @Override
-    public boolean isMale() {
+    public boolean getIsMale() {
         return isMale;
     }
 
@@ -69,8 +69,8 @@ public class PoliticianImpl implements Politician {
         return id;
     }
 
-    public void setGender(boolean gender) {
-        this.isMale = gender;
+    public void setIsMale(boolean isMale) {
+        this.isMale = isMale;
     }
 
     public void setName(String name) {

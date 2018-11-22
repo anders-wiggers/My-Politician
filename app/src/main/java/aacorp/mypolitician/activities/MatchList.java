@@ -29,6 +29,10 @@ public class MatchList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_list);
 
+        updateView();
+    }
+
+    public void updateView(){
         ArrayList<PoliticianImpl> likedPoliticians = new ArrayList<>();
         List<PoliticianImpl> prebList = Database.getInstance().getPoliticiansFixed();
         List<String> likedFromUser = Database.getInstance().getUser().getLikedPoliticians();

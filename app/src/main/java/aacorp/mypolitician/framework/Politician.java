@@ -43,7 +43,7 @@ public interface Politician {
     /**
      * @return Should return boolean base on politicians gender.
      */
-    boolean isMale();
+    boolean getIsMale();
 
     /**
      * @return Should return a politicians strength as a List
