@@ -11,6 +11,7 @@ package aacorp.mypolitician.framework;
 public class Party {
     private int color;
     private String name;
+    private int block;
 
 
     public Party(){
@@ -26,6 +27,14 @@ public class Party {
 
     public String getName(){
         return name;
+    }
+
+    public void setColorOfBlock(int colorOfBlock){
+        this.block = colorOfBlock;
+    }
+
+    public int getColorOfBlock(){
+        return block;
     }
 
     public void setName(String name){
