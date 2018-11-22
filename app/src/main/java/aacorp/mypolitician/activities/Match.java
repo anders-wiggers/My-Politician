@@ -11,8 +11,9 @@
 
 package aacorp.mypolitician.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ExpandableListView;
@@ -23,11 +24,12 @@ import java.util.TimerTask;
 
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
+import aacorp.mypolitician.fragments.LikedPolitician;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.User;
 import aacorp.mypolitician.patterns.Database;
 
-public class Match extends Activity {
+public class Match extends AppCompatActivity {
     ExpandableListView expandableListView;
     private Database db = Database.getInstance();
     private Politician politician; //The politician on display
@@ -40,6 +42,7 @@ public class Match extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         waitForDatabase();
+        loadFragment();
     }
 
     private void updateView(){
@@ -75,7 +78,11 @@ public class Match extends Activity {
         if(db.hasNextPolitician()){
             db.addLikeToUser(politician.getId());
         }
+
+
         fetchNewPolitician();
+
+
         //TODO add full politician view when liked
     }
 
@@ -107,6 +114,13 @@ public class Match extends Activity {
         timer.scheduleAtFixedRate(task, delay, intevalPeriod);
     }
 
+    private void loadFragment(){
+        LikedPolitician myf = new LikedPolitician();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_container, myf);
+        transaction.commit();
+    }
 
 
 

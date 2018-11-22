@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,11 +35,8 @@ public class LikedPoliticianListAdapter extends ArrayAdapter<PoliticianImpl> {
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource,parent,false);
-
 
         TextView name = convertView.findViewById(R.id.listPoliticianName);
         name.setText(getItem(position).getName());
@@ -50,6 +49,8 @@ public class LikedPoliticianListAdapter extends ArrayAdapter<PoliticianImpl> {
             @Override
             public void onClick(View v) {
                 confirmButton.setVisibility(View.VISIBLE);
+                Animation animation = AnimationUtils.loadAnimation(context,R.anim.animation_left);
+                confirmButton.startAnimation(animation);
             }
         });
 
@@ -63,14 +64,17 @@ public class LikedPoliticianListAdapter extends ArrayAdapter<PoliticianImpl> {
             }
         });
 
-
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                if(confirmButton.getVisibility()==View.VISIBLE){
+                    Animation animation = AnimationUtils.loadAnimation(context,R.anim.animation_right);
+                    confirmButton.startAnimation(animation);
+                    confirmButton.setVisibility(View.GONE);
+                }
 
             }
         });
-
 
         return convertView;
     }

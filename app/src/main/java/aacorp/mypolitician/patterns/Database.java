@@ -60,10 +60,6 @@ public class Database {
         return instance;
     }
 
-    public FirebaseFirestore getDatabase(){
-        return db;
-    }
-
     /**
      * Initialises the Firestore database and fetches politicians to the ArrayList politicians.
      */

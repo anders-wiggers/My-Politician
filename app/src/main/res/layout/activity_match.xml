@@ -7,7 +7,6 @@
     tools:context=".activities.Match"
     android:id="@+id/relativeLayout">
 
-
     <TextView
         android:id="@+id/MatchTitle"
         android:layout_width="wrap_content"
@@ -38,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:onClick="dislike"
         android:text="@string/dislike"
         app:layout_constraintBottom_toTopOf="@+id/MatchTitle"
@@ -55,6 +54,18 @@
         app:layout_constraintBottom_toTopOf="@+id/MatchTitle"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <FrameLayout
+        android:background="@color/com_facebook_button_login_silver_background_color"
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

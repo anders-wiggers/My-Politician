@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.Match"
             android:configChanges="orientation"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
 
         <meta-data
