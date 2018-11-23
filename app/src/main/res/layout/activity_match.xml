@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     tools:context=".activities.Match"
     android:id="@+id/relativeLayout">
 
@@ -21,51 +22,80 @@
     <ExpandableListView
         android:id="@+id/eList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="100dp"
         android:groupIndicator="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/MatchTitle">
 
     </ExpandableListView>
 
-    <Button
-        android:id="@+id/dislike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="32dp"
-        android:onClick="dislike"
-        android:text="@string/dislike"
-        app:layout_constraintBottom_toTopOf="@+id/MatchTitle"
-        app:layout_constraintStart_toStartOf="parent" />
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/match_bar" />
 
-    <Button
-        android:id="@+id/like"
+    <ImageButton
+        android:id="@+id/dislike_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="24dp"
+        android:background="@null"
+        android:onClick="dislike"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/redo_button"
+        app:srcCompat="@drawable/dislike_button" />
+
+    <ImageButton
+        android:id="@+id/like_button"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="24dp"
+        android:background="@null"
         android:onClick="like"
-        android:text="@string/like"
-        app:layout_constraintBottom_toTopOf="@+id/MatchTitle"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/redo_button"
+        app:srcCompat="@drawable/like_button" />
+
+    <ImageButton
+        android:id="@+id/redo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:background="@null"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/redo_button" />
 
     <FrameLayout
-        android:background="@color/com_facebook_button_login_silver_background_color"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:background="@color/com_facebook_button_login_silver_background_color"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>
