@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -35,11 +34,11 @@ import aacorp.mypolitician.patterns.Database;
 public class Statistics extends AppCompatActivity{
     Database db;
     PieChart pieChart;
-    BarChart barChart;
+    PieChart pieChartBlock;
     List<PieEntry> pieEntriesParty;
     List<PieEntry> pieEntriesBlock;
     Map<String,Integer> partyPercentages;
-    Map<Integer, Integer> blockPercentages;
+    Map<String, Integer> blockPercentages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,8 @@ public class Statistics extends AppCompatActivity{
         setContentView(R.layout.activity_statistics);
         db = Database.getInstance();
         partyPercentages = new HashMap<>();
+        blockPercentages = new HashMap<>();
         isAllowedAccess();
-
     }
 
     public void isAllowedAccess(){
@@ -56,12 +55,20 @@ public class Statistics extends AppCompatActivity{
         if (checkForStatistics()){
             createAndInitializePieChartOfParties();
             createAndInitializePieChartOfBlocks();
+            makeAllTextInvisible();
         }
         else {
             Toast.makeText(Statistics.this, "You have to match with a politician before generating statistics", Toast.LENGTH_LONG).show();
             makeAllChartsInvisible();
 
         }
+    }
+
+    public void makeAllTextInvisible(){
+        //Make error text invisible
+        findViewById(R.id.textView3).setVisibility(View.GONE);
+        findViewById(R.id.textView4).setVisibility(View.GONE);
+        findViewById(R.id.textView5).setVisibility(View.GONE);
     }
 
     public void makeAllChartsInvisible(){
@@ -83,48 +90,29 @@ public class Statistics extends AppCompatActivity{
         return true;
     }
 
-    /*
-    private void createAndInitializeBarChartOfParties() {
-        //Initialize barchart
-        barChart = findViewById(R.id.barchart);
-        barChart.getDescription().setEnabled(false);
-        barChart.setFitBars(true);
-
-        //Add entries
-        this.barEntriesParty = new ArrayList<>();
-        addPartyEntriesToBar();
-
-        BarDataSet barDataSet = new BarDataSet(barEntriesParty, "Party distribution");
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        BarData bardata = new BarData(barDataSet);
-        bardata.setValueTextSize(10f);
-        bardata.setValueTextColor(Color.YELLOW);
-        barChart.setData(bardata);
-    }*/
-
     private void createAndInitializePieChartOfBlocks(){
         //Initialize pieChart
-        pieChart = findViewById(R.id.piechartblock);
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5,10,5,5);
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(61f);
+        pieChartBlock = findViewById(R.id.piechartblock);
+        pieChartBlock.setUsePercentValues(true);
+        pieChartBlock.getDescription().setEnabled(false);
+        pieChartBlock.setExtraOffsets(5,10,5,5);
+        pieChartBlock.setDragDecelerationFrictionCoef(0.95f);
+        pieChartBlock.setDrawHoleEnabled(true);
+        pieChartBlock.setHoleColor(Color.WHITE);
+        pieChartBlock.setTransparentCircleRadius(61f);
 
         //Add entries
         this.pieEntriesBlock = new ArrayList<>();
         addPartyBlockEntriesToPie();
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntriesParty, "Party distribution");
+        PieDataSet pieDataSet = new PieDataSet(pieEntriesBlock, "Distribution of blocks");
         pieDataSet.setSliceSpace(3f);
         pieDataSet.setSelectionShift(5f);
-        pieDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        pieDataSet.setColors(new int[] {Color.BLUE,Color.RED},this);
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextSize(10f);
         pieData.setValueTextColor(Color.YELLOW);
-        pieChart.setData(pieData);
+        pieChartBlock.setData(pieData);
     }
 
     private void createAndInitializePieChartOfParties(){
@@ -161,10 +149,10 @@ public class Statistics extends AppCompatActivity{
     }
 
     private void addPartyBlockEntriesToPie(){
-        partyPercentages.clear();
+        blockPercentages.clear();
         addPartyBlockToPercentage();
-        for (int key : blockPercentages.keySet()){
-            pieEntriesBlock.add(new PieEntry(partyPercentages.get(key),key));
+        for (String key : blockPercentages.keySet()){
+            pieEntriesBlock.add(new PieEntry(blockPercentages.get(key),key));
         }
     }
 
@@ -180,14 +168,20 @@ public class Statistics extends AppCompatActivity{
             for (String id : politicianIDs) {
                 if (id.equals(p.getId())) {
                     for (Party party : partyIDs){
-                        if(party.equals(p.getParty())){
-                            if (blockPercentages.containsKey(party.getColorOfBlock())){
+                        if(party.getName().equals(p.getParty())){
+                            if(!blockPercentages.containsKey(party.getColorOfBlock())){
+                                blockPercentages.put(party.getColorOfBlock(),1);
+                            }
+                            else {
+                                blockPercentages.put(party.getColorOfBlock(),blockPercentages.get(party.getColorOfBlock())+1);
+                            }
+                           /* if (blockPercentages.containsKey(party.getColorOfBlock())){
                                 blockPercentages.put(party.getColorOfBlock(),blockPercentages.get(party.getColorOfBlock())+1);
                             }
 
                             else {
                                 blockPercentages.put(party.getColorOfBlock(),1);
-                            }
+                            }*/
                         }
                     }
                 }

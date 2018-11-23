@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:src="@drawable/logo"/>
+        android:layout_marginTop="32dp"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/logintermtext"
@@ -41,14 +41,5 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="@color/cardview_light_background"
         tools:text="@string/com_facebook_loginview_log_in_button_continue" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp"
-        android:src="@drawable/logo" />
 
 </RelativeLayout>

@@ -105,7 +105,7 @@ public class Database {
         Party party = new Party();
         party.setName("Alternativet");
         party.setColor(Color.GREEN);
-        party.setColorOfBlock(Color.BLUE);
+        party.setColorOfBlock("Red block");
         db.collection("parties").add(party);
     }
 
