@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"
-        android:src="@drawable/logo.png"/>
+        android:src="@drawable/logo"/>
 
     <TextView
         android:id="@+id/logintermtext"

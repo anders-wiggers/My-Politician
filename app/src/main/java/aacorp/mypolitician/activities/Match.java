@@ -42,7 +42,6 @@ public class Match extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         waitForDatabase();
-        loadFragment();
     }
 
     private void updateView(){
@@ -79,7 +78,7 @@ public class Match extends AppCompatActivity {
             db.addLikeToUser(politician.getId());
         }
 
-
+        loadFragment();
         fetchNewPolitician();
 
 
