@@ -42,6 +42,7 @@ public class Statistics extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setTitle("Statistics");  // provide compatibility to all the versions
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         db = Database.getInstance();

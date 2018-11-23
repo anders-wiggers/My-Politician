@@ -208,6 +208,11 @@ public class Database {
         db.collection("users").document(user.getUsername()).set(user);
     }
 
+    public void removeSeenFromUser(String id){
+        user.removeSeenPolitician(id);
+        db.collection("users").document(user.getUsername()).set(user);
+    }
+
     /**
      * Readys the index of politicians for feching by removing politicians that has been
      * like or dislike from the rest.

@@ -71,4 +71,13 @@ public class User {
             }
         }
     }
+
+    public void removeSeenPolitician(String id) {
+        Iterator<String> i = seenPoliticians.iterator();
+        while(i.hasNext()){
+            if(id.equals(i.next())){
+                i.remove();
+            }
+        }
+    }
 }

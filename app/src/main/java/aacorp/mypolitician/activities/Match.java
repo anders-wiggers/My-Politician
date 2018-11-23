@@ -74,6 +74,7 @@ public class Match extends AppCompatActivity {
                 @Override
                 public void run() {
                     Toast.makeText(Match.this, "we're out of politicians", Toast.LENGTH_LONG).show();
+                    updateView();
                 }
             });
         }
@@ -102,7 +103,10 @@ public class Match extends AppCompatActivity {
     }
 
     public void redoDislike(View view){
-
+        politician = prevPolitician;
+        prevPolitician = null;
+        db.removeSeenFromUser(politician.getId());
+        updateView();
     }
 
     public void waitForDatabase(){
