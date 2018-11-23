@@ -74,7 +74,6 @@ public class Match extends AppCompatActivity {
                 @Override
                 public void run() {
                     Toast.makeText(Match.this, "we're out of politicians", Toast.LENGTH_LONG).show();
-                    updateView();
                 }
             });
         }

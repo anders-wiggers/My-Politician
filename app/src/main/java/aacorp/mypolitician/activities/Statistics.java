@@ -42,7 +42,6 @@ public class Statistics extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setTitle("Statistics");  // provide compatibility to all the versions
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         db = Database.getInstance();
@@ -109,7 +108,7 @@ public class Statistics extends AppCompatActivity{
         PieDataSet pieDataSet = new PieDataSet(pieEntriesBlock, "Distribution of blocks");
         pieDataSet.setSliceSpace(3f);
         pieDataSet.setSelectionShift(5f);
-        pieDataSet.setColors(new int[] {Color.BLUE,Color.RED},this);
+        pieDataSet.setColors(new int[] {Color.BLUE,Color.RED});
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextSize(10f);
         pieData.setValueTextColor(Color.YELLOW);
