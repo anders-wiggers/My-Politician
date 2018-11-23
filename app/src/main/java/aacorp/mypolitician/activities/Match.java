@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -30,7 +31,8 @@ import aacorp.mypolitician.framework.User;
 import aacorp.mypolitician.patterns.Database;
 
 public class Match extends AppCompatActivity {
-    ExpandableListView expandableListView;
+    private Politician prevPolitician = null;
+    private ExpandableListView expandableListView;
     private Database db = Database.getInstance();
     private Politician politician; //The politician on display
     private User user;
@@ -45,6 +47,12 @@ public class Match extends AppCompatActivity {
     }
 
     private void updateView(){
+        if(prevPolitician==null){
+            ((ImageButton) findViewById(R.id.redo_button)).setVisibility(View.INVISIBLE);
+        }
+        else {
+            ((ImageButton) findViewById(R.id.redo_button)).setVisibility(View.VISIBLE);
+        }
         expandableListView = (ExpandableListView) findViewById(R.id.eList);
         ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician); //TODO fix the adapter
         expandableListView.setAdapter(adapter);
@@ -87,9 +95,14 @@ public class Match extends AppCompatActivity {
 
     public void dislike(View view){
         if(db.hasNextPolitician()) {
+            prevPolitician = politician;
             db.addSeenToUser(politician.getId());
         }
         fetchNewPolitician();
+    }
+
+    public void redoDislike(View view){
+
     }
 
     public void waitForDatabase(){
