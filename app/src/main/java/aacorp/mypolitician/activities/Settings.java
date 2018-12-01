@@ -11,27 +11,34 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import aacorp.mypolitician.R;
+import aacorp.mypolitician.patterns.Database;
 
 public class Settings extends AppCompatActivity {
+    Switch localpol;
+    private Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setTitle("Settings");  // provide compatibility to all the versions
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        db = Database.getInstance();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        localpol = (Switch) findViewById(R.id.localpoliticiansswitch);
+        localpol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(getBaseContext(), "Local politicians only", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getBaseContext(), "All politicians available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
 }

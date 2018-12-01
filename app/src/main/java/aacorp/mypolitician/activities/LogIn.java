@@ -6,10 +6,15 @@
 
 package aacorp.mypolitician.activities;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,7 +27,10 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -43,6 +51,7 @@ public class LogIn extends Activity {
     private FirebaseUser user;
     private Button mFacebookBtn;
     private Database db = Database.getInstance();
+    private FusedLocationProviderClient mFusedLocationClient;
 
 
     @Override
@@ -54,6 +63,8 @@ public class LogIn extends Activity {
         //Initialize firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         mFacebookBtn = (Button) findViewById(R.id.facebooklogin);
@@ -63,7 +74,7 @@ public class LogIn extends Activity {
 
                 mFacebookBtn.setEnabled(false);
 
-                LoginManager.getInstance().logInWithReadPermissions(LogIn.this, Arrays.asList("email","public_profile"));
+                LoginManager.getInstance().logInWithReadPermissions(LogIn.this, Arrays.asList("email", "public_profile"));
                 LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -97,6 +108,21 @@ public class LogIn extends Activity {
         if (currentUser != null) {
             updateUI(currentUser);
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    public Task<Location> getLastLocation() {
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            Log.d(TAG, "no location available");
+                        }
+                        return
+                    }
+                });
     }
 
     //Send user to next page if the login is successful
