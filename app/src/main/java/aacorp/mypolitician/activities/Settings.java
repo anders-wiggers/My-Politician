@@ -21,6 +21,7 @@ import aacorp.mypolitician.patterns.Database;
 public class Settings extends AppCompatActivity {
     Switch localpol;
     private Database db;
+    private boolean onlyLocalPoliticians;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,11 @@ public class Settings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     Toast.makeText(getBaseContext(), "Local politicians only", Toast.LENGTH_SHORT).show();
+                    onlyLocalPoliticians = true;
 
                 } else {
                     Toast.makeText(getBaseContext(), "All politicians available", Toast.LENGTH_SHORT).show();
+                    onlyLocalPoliticians = false;
                 }
             }
         });

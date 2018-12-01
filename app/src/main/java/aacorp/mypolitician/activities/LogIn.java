@@ -63,6 +63,7 @@ public class LogIn extends Activity {
         //Initialize firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+        //Create instance of fusedLocationProvider
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Initialize Facebook Login button
@@ -108,21 +109,6 @@ public class LogIn extends Activity {
         if (currentUser != null) {
             updateUI(currentUser);
         }
-    }
-
-    @SuppressLint("MissingPermission")
-    public Task<Location> getLastLocation() {
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            Log.d(TAG, "no location available");
-                        }
-                        return
-                    }
-                });
     }
 
     //Send user to next page if the login is successful
