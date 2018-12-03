@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -44,6 +45,8 @@ public class Match extends AppCompatActivity {
     private Timer timer = new Timer();
     private ImageButton removePreview;
     private FrameLayout frag_container;
+    private ImageView politician_page;
+    private ImageView nextPoliticianPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,14 @@ public class Match extends AppCompatActivity {
         waitForDatabase();
         removePreview = findViewById(R.id.removePreview);
         frag_container = findViewById(R.id.fragment_container);
+        politician_page = findViewById(R.id.politician_page);
+        nextPoliticianPage = findViewById(R.id.politician_page_2);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchNewPolitician();
     }
 
     private void updateView(){
@@ -93,9 +104,10 @@ public class Match extends AppCompatActivity {
         //user.likedPoliticians.add(politician);
         if(db.hasNextPolitician()){
             db.addLikeToUser(politician.getId());
+            MoveData.getInstance().setPolitician(politician);
+            loadFragment();
         }
-        MoveData.getInstance().setPolitician(politician);
-        loadFragment();
+
     }
 
     public void removePreview(View view){
@@ -113,6 +125,11 @@ public class Match extends AppCompatActivity {
             prevPolitician = politician;
             db.addSeenToUser(politician.getId());
         }
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.remove_match_animation);
+        politician_page.startAnimation(animation);
+
+        Animation animation1 = AnimationUtils.loadAnimation(this,R.anim.remove_match_next);
+        nextPoliticianPage.startAnimation(animation1);
         fetchNewPolitician();
     }
 

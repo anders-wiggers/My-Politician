@@ -21,12 +21,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4">
+        app:layout_constraintTop_toBottomOf="@+id/politician_page">
 
     </ExpandableListView>
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/bottomBar"
         android:layout_width="0dp"
         android:layout_height="78dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,13 +97,13 @@
         android:elevation="10dp"
         android:onClick="removePreview"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/buttonHolder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/accept_button" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/buttonHolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_container" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/politicianPage3"
         android:layout_width="257dp"
         android:layout_height="228dp"
         android:layout_marginEnd="8dp"
@@ -125,19 +125,19 @@
         app:srcCompat="@drawable/politician_bg" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="298dp"
-        android:layout_height="259dp"
+        android:id="@+id/politician_page_2"
+        android:layout_width="240dp"
+        android:layout_height="258dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="38dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/politician_bg" />
+        app:srcCompat="@drawable/ano_politician" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/politician_page"
         android:layout_width="293dp"
         android:layout_height="263dp"
         android:layout_marginEnd="24dp"
@@ -152,12 +152,12 @@
         android:id="@+id/settings_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
         android:background="@null"
         android:onClick="Settings"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/politician_page"
+        app:layout_constraintTop_toTopOf="@+id/politician_page"
         app:srcCompat="@drawable/settings_icon" />
 
 
