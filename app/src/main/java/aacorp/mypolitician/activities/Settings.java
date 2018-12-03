@@ -67,7 +67,7 @@ public class Settings extends AppCompatActivity implements GoogleApiClient.Conne
                 SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                 editor.putBoolean("EnabledSetting", isChecked);
                 misEnabled = isChecked;
-                editor.commit();
+                editor.apply();
 
                 if (isChecked) {
                     mGeofencing.registerAllGeofences();
