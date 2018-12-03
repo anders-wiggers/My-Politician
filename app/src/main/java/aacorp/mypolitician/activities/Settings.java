@@ -6,16 +6,10 @@
 package aacorp.mypolitician.activities;
 
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -24,14 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.framework.Geofencing;
@@ -44,7 +32,6 @@ public class Settings extends AppCompatActivity implements GoogleApiClient.Conne
     private Geofencing mGeofencing;
     private boolean onlyLocalPoliticians;
     private boolean misEnabled;
-import aacorp.mypolitician.patterns.Database;
 
     //Constants
     public static final String TAG = Settings.class.getSimpleName();
@@ -54,7 +41,6 @@ import aacorp.mypolitician.patterns.Database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setTitle("Settings");  // provide compatibility to all the versions
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -83,7 +69,6 @@ import aacorp.mypolitician.patterns.Database;
                 }
             }
         });
-    }
 
         mClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -104,13 +89,14 @@ import aacorp.mypolitician.patterns.Database;
     @Override
     public void onConnectionSuspended(int cause) {
         Log.i(TAG, "API Client connection suspended");
-    public void resetMatchesAndStatistics(View view){
-        Database.getInstance().clearUser();
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e(TAG, "API Client Connection Failed");
+    }
+
+    public void resetMatches(View view){
+        db.clearUser();
     }
 }
