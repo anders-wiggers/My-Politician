@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".activities.Settings"
+    android:id="@+id/relativeLayout2">
     tools:context=".activities.Settings">
 
 
@@ -29,7 +31,6 @@
             android:paddingLeft="30dp"
             android:text="@string/reset"
             android:textAllCaps="false" />
-
         <Button
             android:id="@+id/button8"
             android:layout_marginTop="1dp"
@@ -41,4 +42,45 @@
             android:text="@string/logout"
             android:textAllCaps="false" />
     </LinearLayout>
+
+
+    <Switch
+        android:id="@+id/localpoliticiansswitch"
+        android:layout_width="318dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="29dp"
+        android:checked="false"
+        android:text="Limit politicians to your area"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:checked="false" />
+
+    <Switch
+        android:id="@+id/switch4"
+        android:layout_width="318dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:text="Switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/localpoliticiansswitch" />
+
+    <Switch
+        android:layout_width="318dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="29dp"
+        android:text="Switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
 </android.support.constraint.ConstraintLayout>
