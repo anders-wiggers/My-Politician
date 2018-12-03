@@ -8,16 +8,6 @@
     tools:context=".activities.Match"
     android:id="@+id/relativeLayout">
 
-    <TextView
-        android:id="@+id/MatchTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="179dp"
-        android:text="This is the application's main screen!"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 
     <ExpandableListView
         android:id="@+id/eList"
@@ -26,12 +16,12 @@
         android:layout_marginBottom="50dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="300dp"
         android:groupIndicator="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/MatchTitle">
+        app:layout_constraintTop_toTopOf="parent">
 
     </ExpandableListView>
 
@@ -120,6 +110,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_container" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/politician_bg" />
 
 
 </android.support.constraint.ConstraintLayout>
