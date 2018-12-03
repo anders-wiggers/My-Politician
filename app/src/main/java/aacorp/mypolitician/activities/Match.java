@@ -11,6 +11,7 @@
 
 package aacorp.mypolitician.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -155,6 +156,11 @@ public class Match extends AppCompatActivity {
         transaction.commit();
         frag_container.setVisibility(View.VISIBLE);
         removePreview.setVisibility(View.VISIBLE);
+    }
+
+    public void Settings(View view){
+        Intent intent = new Intent(this,Settings.class);
+        startActivity(intent);
     }
 
 }
