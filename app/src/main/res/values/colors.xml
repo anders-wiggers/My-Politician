@@ -6,4 +6,6 @@
     <color name="textTitleBar">#2E2E2E</color>
     <color name="strengthBarProg">#B2E380</color>
     <color name="strengthBarBg">#E9EAEC</color>
+    <color name="button_bg">#fcfcfc</color>
+    <color name="settings_bg">#f2f2f2</color>
 </resources>

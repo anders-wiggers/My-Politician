@@ -118,25 +118,37 @@ public class Database {
         String myId = ref.getId();
 
         PoliticianImpl politician = new PoliticianImpl();
-        politician.setName("Lars Thomas");
-        politician.setArea(new GeoPoint(51,10));
-        politician.setBannerId(41601);
-        politician.setParty("Alternativet");
-        politician.setProfilePictureId(52351);
+        politician.setName("Jacob Bundsgaard");
+        politician.setArea(new GeoPoint(56.1567,10.2108));
+        politician.setBannerId("");
+        politician.setParty("Socialdemokratiet");
+        politician.setProfilePictureId("");
         politician.setIsMale(true);
         politician.setId(myId);
 
         StrengthImpl s = new StrengthImpl();
         StrengthImpl s1 = new StrengthImpl();
+        StrengthImpl s2 = new StrengthImpl();
         Map<String,StrengthImpl> sl = new HashMap<>();
 
-        s.setPercent(10);
-        s.setText("People should chill");
-        sl.put("def",s);
+        s.setPercent(80);
+        s.setText("Vi bor i en by i hastig udvikling. Generationer har gennem hårdt arbejde skabt vores by, og derfor har vi alle et ansvar for at gøre Aarhus endnu bedre – hvad end vi har boet her hele vores liv eller blev aarhusianere i sidste måned. Alle skal have del i fremtidens muligheder. Derfor skal vi sikre, at alle uanset uddannelse og baggrund kan bidrage. Der skal være plads til at tænke stort for os selv, for hinanden og for vores by. Vores drømme skal gøres til en del af Aarhus.");
+        sl.put("mon",s);
 
-        s1.setText("I think EU is great man!");
-        s1.setPercent(90);
-        sl.put("wor",s1);
+        s1.setText("\n" +
+                "Aarhus skal være en tryg by. Vi skal alle passe på hinanden, fordi tryghed skabes i stærke, inkluderende og forpligtende fællesskaber. " +
+                "Vi skal sætte hårdt ind over for bander, organiseret kriminalitet og parallelsamfund, der melder sig ud af Aarhus. Alle aarhusianere skal vide, " +
+                "at vi bor i en by, som rækker hånden ud, hvis behovet opstår. Og vi skal vide, at vi selv har en forpligtelse til at bidrage, når vi er en del af Aarhus. ");
+        s1.setPercent(60);
+        sl.put("def",s1);
+
+        s2.setText("I Aarhus tager vi ansvar over for naturen, vores klima og vores fremtid. Vi skal gøre Aarhus grønnere, og byens borgere skal sammen kunne nyde " +
+                "den fantastiske aarhusianske natur. At være en grøn by betyder også, at vi skal gå forrest med ambitiøse målsætninger for at reducere vores fælles " +
+                "påvirkning af klimaet. Vi skylder vores børn og børnebørn at aflevere et grønnere Aarhus end det, vi overtog. Vores natur er en del af Aarhus, " +
+                "og den skal vi passe på.");
+        s2.setPercent(40);
+        sl.put("env",s2);
+
 
         politician.setStrength(sl);
 
@@ -244,6 +256,17 @@ public class Database {
 
     public List<PoliticianImpl> getPoliticiansFixed(){
         return politiciansFixed;
+    }
+
+    public void clearUser(){
+        User user1 = new User();
+        user1.setLikedPoliticians(new ArrayList<String>());
+        user1.setSeenPoliticians(new ArrayList<String>());
+        user1.setUsername(user.getUsername());
+        user1.setEmail(user.getEmail());
+        db.collection("users").document(user1.getUsername()).set(user1);
+        user = user1;
+        initialize();
     }
 
 }

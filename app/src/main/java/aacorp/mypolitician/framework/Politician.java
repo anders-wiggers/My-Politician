@@ -33,12 +33,12 @@ public interface Politician {
     /**
      * @return Should return a politicians Banner Id
      */
-    int getBannerId();
+    String getBannerId();
 
     /**
      * @return Should return a politicians Profile picture id
      */
-    int getProfilePictureId();
+    String getProfilePictureId();
 
     /**
      * @return Should return boolean base on politicians gender.

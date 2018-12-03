@@ -84,5 +84,7 @@
     <string name="like">Like</string>
     <string name="dislike">Dislike</string>
     <string name="areYouSure">Are You Sure?</string>
+    <string name="logout">Logout</string>
+    <string name="reset">Reset Matches and Statistics</string>
 
 </resources>

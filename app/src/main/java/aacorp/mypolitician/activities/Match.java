@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import aacorp.mypolitician.fragments.LikedPolitician;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.User;
 import aacorp.mypolitician.patterns.Database;
+import aacorp.mypolitician.patterns.MoveData;
 
 public class Match extends AppCompatActivity {
     private Politician prevPolitician = null;
@@ -37,6 +39,8 @@ public class Match extends AppCompatActivity {
     private Politician politician; //The politician on display
     private User user;
     private Timer timer = new Timer();
+    private ImageButton removePreview;
+    private FrameLayout frag_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class Match extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         waitForDatabase();
+        removePreview = findViewById(R.id.removePreview);
+        frag_container = findViewById(R.id.fragment_container);
     }
 
     private void updateView(){
@@ -85,13 +91,19 @@ public class Match extends AppCompatActivity {
         if(db.hasNextPolitician()){
             db.addLikeToUser(politician.getId());
         }
-
+        MoveData.getInstance().setPolitician(politician);
         loadFragment();
         fetchNewPolitician();
 
-
         //TODO add full politician view when liked
     }
+
+    public void removePreview(View view){
+        frag_container.setVisibility(View.GONE);
+        removePreview.setVisibility(View.GONE);
+    }
+
+
 
     public void dislike(View view){
         if(db.hasNextPolitician()) {
@@ -132,11 +144,15 @@ public class Match extends AppCompatActivity {
     private void loadFragment(){
         LikedPolitician myf = new LikedPolitician();
 
+        Bundle bundle = new Bundle();
+        bundle.putString("name", politician.getName());
+        bundle.putString("party",politician.getParty());
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, myf);
         transaction.commit();
+        frag_container.setVisibility(View.VISIBLE);
+        removePreview.setVisibility(View.VISIBLE);
     }
-
-
 
 }

@@ -57,13 +57,11 @@
         <activity
             android:name=".activities.Settings"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.Statistics"
             android:label="@string/title_activity_statistics"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
     </application>

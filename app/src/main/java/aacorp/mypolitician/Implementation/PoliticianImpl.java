@@ -22,8 +22,8 @@ public class PoliticianImpl implements Politician {
     private String name;
     private String party;
     private GeoPoint geoPoint;
-    private int bannerId;
-    private int profilePictureId;
+    private String bannerId;
+    private String profilePictureId;
     private Map<String,StrengthImpl> strength;
     private String id;
     private boolean isMale;
@@ -45,12 +45,12 @@ public class PoliticianImpl implements Politician {
     }
 
     @Override
-    public int getBannerId() {
+    public String getBannerId() {
         return bannerId;
     }
 
     @Override
-    public int getProfilePictureId() {
+    public String getProfilePictureId() {
         return profilePictureId;
     }
 
@@ -85,11 +85,11 @@ public class PoliticianImpl implements Politician {
         this.geoPoint = geoPoint;
     }
 
-    public void setBannerId(int bannerId) {
+    public void setBannerId(String bannerId) {
         this.bannerId = bannerId;
     }
 
-    public void setProfilePictureId(int profilePictureId) {
+    public void setProfilePictureId(String profilePictureId) {
         this.profilePictureId = profilePictureId;
     }
 
