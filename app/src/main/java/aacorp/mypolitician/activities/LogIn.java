@@ -6,10 +6,14 @@
 
 package aacorp.mypolitician.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,9 +26,12 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -38,15 +45,16 @@ import aacorp.mypolitician.R;
 import aacorp.mypolitician.patterns.Database;
 
 
-public class LogIn extends Activity {
+public class LogIn extends Activity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
+    //Facebook login
     private CallbackManager mCallbackManager;
-    private static final String TAG = "FACELOG";
+    private static final String TAG = LogIn.class.getSimpleName();
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
     private Button mFacebookBtn;
     private Database db = Database.getInstance();
+    //Location
     private FusedLocationProviderClient mFusedLocationClient;
-
+    protected Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +65,10 @@ public class LogIn extends Activity {
         //Initialize firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+        //TODO FIX
         //Create instance of fusedLocationProvider
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //getLocation();
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
@@ -93,24 +103,52 @@ public class LogIn extends Activity {
         });
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
-
+        super.onStart();
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null) {
+                    mLastLocation = location;
+                } else {
+                    mLastLocation = new Location("");
+                    mLastLocation.setLatitude(10);
+                    mLastLocation.setLongitude(10);
+                }
+            }
+        });
+        // Check if user is signed in (non-null) and update UI accordingly.;
         if (currentUser != null) {
             updateUI(currentUser);
         }
     }
 
+    /*
+    @SuppressLint("MissingPermission")
+    public void getLocation() {
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null) {
+                    mLastLocation = location;
+                } else {
+                    mLastLocation = new Location("");
+                    mLastLocation.setLatitude(10);
+                    mLastLocation.setLongitude(10);
+                }
+            }
+        });
+    }*/
+
+
     //Send user to next page if the login is successful
     public void updateUI(FirebaseUser user){
-        Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
-
         db.setUser(user);
-
+        db.getUser().setLocation(mLastLocation);
+        Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
         Intent MatchIntent = new Intent(LogIn.this, Match.class);
         startActivity(MatchIntent);
         finish();
@@ -152,4 +190,41 @@ public class LogIn extends Activity {
                     }
                 });
     }
-}
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+
+    }

@@ -78,9 +78,26 @@ public class Match extends AppCompatActivity {
         expandableListView.setAdapter(adapter);
     }
 
-    //TODO GRACEFULLY HANDLE OUT OF POLITICIANS :)
-    public void fetchNewPolitician(){
-        if(db.hasNextPolitician()) {
+    public void fetchLocalPolitician(){
+        if(db.getUser().getLocalPoliticianSetting()) {
+            if (db.hasNextPolitician()) {
+                politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateView(); }});
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(Match.this, "we're out of local politicians. Allow all politician in settings", Toast.LENGTH_SHORT).show(); }}); }
+        } else {
+            fetchNewPolitician();
+        }
+    }
+
+    public void fetchNewPolitician() {
+        if (db.hasNextPolitician()) {
             politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
             runOnUiThread(new Runnable() {
                 @Override
@@ -88,8 +105,7 @@ public class Match extends AppCompatActivity {
                     updateView();
                 }
             });
-        }
-        else{
+        } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -97,8 +113,7 @@ public class Match extends AppCompatActivity {
                 }
             });
         }
-    }
-
+        }
 
     public void like(View view){
         //user.likedPoliticians.add(politician);
