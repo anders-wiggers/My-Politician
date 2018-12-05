@@ -6,14 +6,17 @@
 
 package aacorp.mypolitician.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -103,36 +106,24 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
         });
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onStart() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
         super.onStart();
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if(location != null) {
-                    mLastLocation = location;
-                } else {
-                    mLastLocation = new Location("");
-                    mLastLocation.setLatitude(10);
-                    mLastLocation.setLongitude(10);
-                }
-            }
-        });
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         // Check if user is signed in (non-null) and update UI accordingly.;
         if (currentUser != null) {
             updateUI(currentUser);
         }
     }
 
-    /*
+
+
     @SuppressLint("MissingPermission")
     public void getLocation() {
         mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location != null) {
+                if (location != null) {
                     mLastLocation = location;
                 } else {
                     mLastLocation = new Location("");
@@ -141,7 +132,7 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
                 }
             }
         });
-    }*/
+    }
 
 
     //Send user to next page if the login is successful
