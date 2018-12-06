@@ -13,6 +13,7 @@ package aacorp.mypolitician.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,6 +31,7 @@ import java.util.TimerTask;
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
 import aacorp.mypolitician.fragments.LikedPolitician;
+import aacorp.mypolitician.framework.OnSwipeTouchListener;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.User;
 import aacorp.mypolitician.patterns.Database;
@@ -105,8 +107,6 @@ public class Match extends AppCompatActivity {
     /**
      * feches new politician from the Database
      */
-    public void fetchNewPolitician(){
-        if(db.hasNextPolitician()) {
     public void fetchLocalPolitician(){
         if(db.getUser().getLocalPoliticianSetting()) {
             if (db.hasNextPolitician()) {
