@@ -1,3 +1,12 @@
+/**
+ *  Singleton that handles moving obejcts from between classes.
+ *
+ * @author Anders Bille Wiggers
+ * @author Alex Krogh Smythe
+ * for Introduction-to-Human-Computer-InteractionI course.
+ * Copyright (c) 2018
+ *
+ */
 package aacorp.mypolitician.patterns;
 
 import aacorp.mypolitician.framework.Politician;
@@ -20,6 +29,7 @@ public class MoveData {
         }
         return instance;
     }
+
 
     public void setPolitician(Politician politician){
         this.politician = politician;

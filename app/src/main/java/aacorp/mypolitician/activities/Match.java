@@ -13,10 +13,10 @@ package aacorp.mypolitician.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
@@ -31,6 +31,7 @@ import java.util.TimerTask;
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
 import aacorp.mypolitician.fragments.LikedPolitician;
+import aacorp.mypolitician.framework.OnSwipeTouchListener;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.User;
 import aacorp.mypolitician.patterns.Database;
@@ -47,38 +48,65 @@ public class Match extends AppCompatActivity {
     private FrameLayout frag_container;
     private ImageView politician_page;
     private ImageView nextPoliticianPage;
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         waitForDatabase();
+
+        //set views
         removePreview = findViewById(R.id.removePreview);
         frag_container = findViewById(R.id.fragment_container);
         politician_page = findViewById(R.id.politician_page);
         nextPoliticianPage = findViewById(R.id.politician_page_2);
+
+        //Set SwipeSwipeListerner
+        constraintLayout = findViewById(R.id.relativeLayout);
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeLeft() {
+                Intent intent = new Intent(Match.this, Statistics.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+            @Override
+            public void onSwipeRight() {
+                Intent intent = new Intent(Match.this, MatchList.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        };
+        constraintLayout.setOnTouchListener(onSwipeTouchListener);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //fetchNewPolitician();
+        if(user!=null) fetchNewPolitician();
     }
 
+    /**
+     * updates the match view
+     */
     private void updateView(){
         if(prevPolitician==null){
-            ((ImageButton) findViewById(R.id.redo_button)).setVisibility(View.INVISIBLE);
+            (findViewById(R.id.redo_button)).setVisibility(View.INVISIBLE);
         }
         else {
-            ((ImageButton) findViewById(R.id.redo_button)).setVisibility(View.VISIBLE);
+            (findViewById(R.id.redo_button)).setVisibility(View.VISIBLE);
         }
         expandableListView = (ExpandableListView) findViewById(R.id.eList);
-        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician); //TODO fix the adapter
+        ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
         expandableListView.setAdapter(adapter);
     }
 
     //TODO GRACEFULLY HANDLE OUT OF POLITICIANS :)
+
+    /**
+     * feches new politician from the Database
+     */
     public void fetchNewPolitician(){
         if(db.hasNextPolitician()) {
             politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
@@ -99,7 +127,11 @@ public class Match extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Like a the current politician. Adds the current pol to the
+     * user in the database
+     * @param view
+     */
     public void like(View view){
         //user.likedPoliticians.add(politician);
         if(db.hasNextPolitician()){
@@ -110,6 +142,10 @@ public class Match extends AppCompatActivity {
 
     }
 
+    /**
+     * Removes the preview fragment
+     * @param view
+     */
     public void removePreview(View view){
         removePreview.setVisibility(View.GONE);
         fetchNewPolitician();
@@ -119,7 +155,11 @@ public class Match extends AppCompatActivity {
     }
 
 
-
+    /**
+     * dislikes the current politicians. Add the current pol to the
+     * user in the database
+     * @param view
+     */
     public void dislike(View view){
         if(db.hasNextPolitician()) {
             prevPolitician = politician;
@@ -133,6 +173,10 @@ public class Match extends AppCompatActivity {
         fetchNewPolitician();
     }
 
+    /**
+     * fetch the last politicians and remove the politician from seen
+     * @param view
+     */
     public void redoDislike(View view){
         politician = prevPolitician;
         prevPolitician = null;
@@ -140,6 +184,9 @@ public class Match extends AppCompatActivity {
         updateView();
     }
 
+    /**
+     * Waits for the database before fetching a politician, avoids nullpointer
+     */
     public void waitForDatabase(){
         final TimerTask task = new TimerTask() {
             @Override
@@ -161,6 +208,9 @@ public class Match extends AppCompatActivity {
         timer.scheduleAtFixedRate(task, delay, intevalPeriod);
     }
 
+    /**
+     * loads the like politiicans to the fragment.
+     */
     private void loadFragment(){
         LikedPolitician myf = new LikedPolitician();
 
@@ -175,6 +225,10 @@ public class Match extends AppCompatActivity {
         removePreview.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * opens settings menu
+     * @param view
+     */
     public void Settings(View view){
         Intent intent = new Intent(this,Settings.class);
         startActivity(intent);

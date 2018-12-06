@@ -187,10 +187,16 @@ public class Database {
         });
     }
 
+    /**
+     * @return the databse state
+     */
     public boolean isAppReady() {
         return AppReady;
     }
 
+    /**
+     * @return returns the current user
+     */
     public User getUser() {
         return user;
     }
@@ -209,17 +215,30 @@ public class Database {
         db.collection("users").document(user.getUsername()).set(user);
     }
 
+    /**
+     * add a politician a user has liked to the users list, so that
+     * the user wont get the same politicians twice
+     * @param id the ID of the politician to be added
+     */
     public void addLikeToUser(String id) {
         user.addLikedPolitician(id);
         db.collection("users").document(user.getUsername()).set(user);
 
     }
 
+    /**
+     * removes a likes politician from a user
+     * @param id the id of the politician to remove
+     */
     public void removeLikeFromUser(String id){
         user.removeLikedPolitician(id);
         db.collection("users").document(user.getUsername()).set(user);
     }
 
+    /**
+     * removes a seen politician
+     * @param id the id of the politicians to remove
+     */
     public void removeSeenFromUser(String id){
         user.removeSeenPolitician(id);
         db.collection("users").document(user.getUsername()).set(user);
@@ -258,6 +277,9 @@ public class Database {
         return politiciansFixed;
     }
 
+    /**
+     * Resets the user likes and seen politicians
+     */
     public void clearUser(){
         User user1 = new User();
         user1.setLikedPoliticians(new ArrayList<String>());
@@ -268,5 +290,7 @@ public class Database {
         user = user1;
         initialize();
     }
+
+
 
 }

@@ -86,5 +86,7 @@
     <string name="areYouSure">Are You Sure?</string>
     <string name="logout">Logout</string>
     <string name="reset">Reset Matches and Statistics</string>
+    <string name="title_activity_swipe_main">SwipeMain</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

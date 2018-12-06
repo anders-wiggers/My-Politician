@@ -7,10 +7,13 @@
 
 package aacorp.mypolitician.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -27,18 +30,21 @@ import java.util.Map;
 
 import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.R;
+import aacorp.mypolitician.framework.OnSwipeTouchListener;
 import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.patterns.Database;
 
 public class Statistics extends AppCompatActivity{
-    Database db;
-    PieChart pieChart;
-    PieChart pieChartBlock;
-    List<PieEntry> pieEntriesParty;
-    List<PieEntry> pieEntriesBlock;
-    Map<String,Integer> partyPercentages;
-    Map<String, Integer> blockPercentages;
+    private Database db;
+    private PieChart pieChart;
+    private PieChart pieChartBlock;
+    private List<PieEntry> pieEntriesParty;
+    private List<PieEntry> pieEntriesBlock;
+    private Map<String,Integer> partyPercentages;
+    private Map<String, Integer> blockPercentages;
+    private RelativeLayout relativeLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,18 @@ public class Statistics extends AppCompatActivity{
         partyPercentages = new HashMap<>();
         blockPercentages = new HashMap<>();
         isAllowedAccess();
+
+        relativeLayout = findViewById(R.id.relativeLayoutStats);
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeRight() {
+                Intent intent = new Intent(Statistics.this, Match.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        };
+        relativeLayout.setOnTouchListener(onSwipeTouchListener);
+        Log.e("layout is set","yeee");
     }
 
     public void isAllowedAccess(){
@@ -154,6 +172,13 @@ public class Statistics extends AppCompatActivity{
         for (String key : blockPercentages.keySet()){
             pieEntriesBlock.add(new PieEntry(blockPercentages.get(key),key));
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); //Swipe transistion on back
+
     }
 
     public void addPartyBlockToPercentage() {
