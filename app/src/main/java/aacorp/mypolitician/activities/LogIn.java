@@ -6,17 +6,14 @@
 
 package aacorp.mypolitician.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -56,8 +53,8 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
     private Button mFacebookBtn;
     private Database db = Database.getInstance();
     //Location
-    private FusedLocationProviderClient mFusedLocationClient;
-    protected Location mLastLocation;
+    public FusedLocationProviderClient mFusedLocationClient;
+    public Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +68,7 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
         //TODO FIX
         //Create instance of fusedLocationProvider
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //getLocation();
+        getLocation();
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
@@ -138,6 +135,7 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
     //Send user to next page if the login is successful
     public void updateUI(FirebaseUser user){
         db.setUser(user);
+        getLocation();
         db.getUser().setLocation(mLastLocation);
         Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
         Intent MatchIntent = new Intent(LogIn.this, Match.class);
