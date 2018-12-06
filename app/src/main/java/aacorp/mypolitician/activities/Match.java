@@ -13,7 +13,6 @@ package aacorp.mypolitician.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,7 +30,6 @@ import java.util.TimerTask;
 import aacorp.mypolitician.R;
 import aacorp.mypolitician.adapters.ExpanableListViewAdapter;
 import aacorp.mypolitician.fragments.LikedPolitician;
-import aacorp.mypolitician.framework.OnSwipeTouchListener;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.User;
 import aacorp.mypolitician.patterns.Database;
@@ -109,6 +107,26 @@ public class Match extends AppCompatActivity {
      */
     public void fetchNewPolitician(){
         if(db.hasNextPolitician()) {
+    public void fetchLocalPolitician(){
+        if(db.getUser().getLocalPoliticianSetting()) {
+            if (db.hasNextPolitician()) {
+                politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateView(); }});
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(Match.this, "we're out of local politicians. Allow all politician in settings", Toast.LENGTH_SHORT).show(); }}); }
+        } else {
+            fetchNewPolitician();
+        }
+    }
+
+    public void fetchNewPolitician() {
+        if (db.hasNextPolitician()) {
             politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
             runOnUiThread(new Runnable() {
                 @Override
@@ -116,8 +134,7 @@ public class Match extends AppCompatActivity {
                     updateView();
                 }
             });
-        }
-        else{
+        } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -125,7 +142,7 @@ public class Match extends AppCompatActivity {
                 }
             });
         }
-    }
+        }
 
     /**
      * Like a the current politician. Adds the current pol to the

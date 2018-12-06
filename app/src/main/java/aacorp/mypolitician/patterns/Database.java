@@ -101,6 +101,12 @@ public class Database {
         return politicians.get(rngPolitician);
     }
 
+
+
+    public Politician fetchLocalPolitician(){
+            return null;
+    }
+
     public void createParty(){
         Party party = new Party();
         party.setName("Alternativet");
@@ -176,6 +182,7 @@ public class Database {
                     user1.setEmail(firebaseUser.getEmail());
                     user1.setLikedPoliticians(new ArrayList<String>());
                     user1.setSeenPoliticians(new ArrayList<String>());
+                    user1.setLocalPoliticianSetting(false);
                     db.collection("users").document(user1.getUsername()).set(user1);
                     user = user1;
                 }
@@ -212,6 +219,11 @@ public class Database {
      */
     public void addSeenToUser(String id){
         user.addSeenPolitician(id);
+        db.collection("users").document(user.getUsername()).set(user);
+    }
+
+    public void updateLocalPoliticianSetting(Boolean b){
+        user.setLocalPoliticianSetting(b);
         db.collection("users").document(user.getUsername()).set(user);
     }
 
@@ -290,7 +302,5 @@ public class Database {
         user = user1;
         initialize();
     }
-
-
 
 }

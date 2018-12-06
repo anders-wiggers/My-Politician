@@ -12,11 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
@@ -26,11 +23,10 @@ import com.google.android.gms.location.places.Places;
 import com.google.firebase.auth.FirebaseAuth;
 
 import aacorp.mypolitician.R;
-import aacorp.mypolitician.framework.Geofencing;
 import aacorp.mypolitician.patterns.Database;
 
-public class Settings extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    Switch localpol;
+public class Settings extends AppCompatActivity {
+    private Switch localpol;
     private Database db;
     private GoogleApiClient mClient;
     private Geofencing mGeofencing;
@@ -53,54 +49,27 @@ public class Settings extends AppCompatActivity implements GoogleApiClient.Conne
         db = Database.getInstance();
 
         localpol = (Switch) findViewById(R.id.localpoliticiansswitch);
-        misEnabled = getPreferences(MODE_PRIVATE).getBoolean("EnabledSetting", false);
-        localpol.setChecked(misEnabled);
-        localpol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        localpol.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                editor.putBoolean("EnabledSetting", isChecked);
-                misEnabled = isChecked;
-                editor.apply();
-
-                if (isChecked) {
-                    mGeofencing.registerAllGeofences();
-                    Toast.makeText(getBaseContext(), "Local politicians only", Toast.LENGTH_SHORT).show();
-                    onlyLocalPoliticians = true;
-
+            public void onClick(View view) {
+                if (localpol.isChecked()) {
+                    localpol.toggle();
+                    db.updateLocalPoliticianSetting(false);
                 } else {
-                    mGeofencing.unRegisterAllGeofences();
-                    Toast.makeText(getBaseContext(), "All politicians available", Toast.LENGTH_SHORT).show();
-                    onlyLocalPoliticians = false;
+                    localpol.toggle();
+                    db.updateLocalPoliticianSetting(true);
                 }
             }
         });
 
-        mClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .addApi(Places.GEO_DATA_API)
-                .enableAutoManage(this,this)
-                .build();
-
-        mGeofencing = new Geofencing(this,mClient);
+        if(db.getUser().getLocalPoliticianSetting()){
+            localpol.setChecked(true);
+        } else {
+            localpol.setChecked(false);
+        }
     }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        Log.i(TAG, "API Client connection Successful!");
-    }
 
-    @Override
-    public void onConnectionSuspended(int cause) {
-        Log.i(TAG, "API Client connection suspended");
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.e(TAG, "API Client Connection Failed");
-    }
 
     public void resetMatches(View view){
         db.clearUser();

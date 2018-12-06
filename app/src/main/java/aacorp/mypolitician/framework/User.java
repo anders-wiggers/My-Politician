@@ -8,6 +8,8 @@
 
 package aacorp.mypolitician.framework;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +19,8 @@ public class User {
     private String email;
     private ArrayList<String> likedPoliticians = null;
     private ArrayList<String> seenPoliticians = null;
+    private Boolean localPoliticianSetting = null;
+    private Location location;
 
     public User(){ }
 
@@ -36,12 +40,28 @@ public class User {
         this.seenPoliticians = seenPoliticians;
     }
 
+    public Boolean getLocalPoliticianSetting() {
+        return localPoliticianSetting;
+    }
+
+    public void setLocalPoliticianSetting(Boolean localPoliticianSetting) {
+        this.localPoliticianSetting = localPoliticianSetting;
+    }
+
     public String getUsername() {
         return username;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public List<String> getLikedPoliticians(){
