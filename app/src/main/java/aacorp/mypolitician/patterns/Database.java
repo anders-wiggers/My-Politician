@@ -102,10 +102,6 @@ public class Database {
     }
 
 
-    public Politician fetchLocalPolitician(){
-            return null;
-    }
-
     /**
      * Method that fill the database base with all danish parties.
      */
@@ -293,6 +289,20 @@ public class Database {
      * like or dislike from the rest.
      */
     public void readyIndex(){
+        List<String> ids = new ArrayList<>();
+        ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
+        Iterator<PoliticianImpl> i = politicians.iterator();
+        while(i.hasNext()) {
+            Politician p = i.next();
+            for (String id : ids) {
+                if (id.equals(p.getId())) {
+                    i.remove();
+                }
+            }
+        }
+    }
+
+    public void readyLocalPoliticians(GeoPoint location){
         List<String> ids = new ArrayList<>();
         ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
         Iterator<PoliticianImpl> i = politicians.iterator();

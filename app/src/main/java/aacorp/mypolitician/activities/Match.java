@@ -11,11 +11,17 @@
 
 package aacorp.mypolitician.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,6 +29,10 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -51,11 +61,16 @@ public class Match extends AppCompatActivity {
     private ConstraintLayout loading;
     private ConstraintLayout outOfPoliticians;
 
+    public FusedLocationProviderClient mFusedLocationClient;
+    public Location mLastLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         waitForDatabase(); //Start time to check for the database
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
 
         //set views
         loading = findViewById(R.id.loading);
@@ -102,6 +117,12 @@ public class Match extends AppCompatActivity {
             fetchNewPolitician();
             MoveData.getInstance().toggleHasReset();
         }
+        if(Database.getInstance().isAppReady()){
+            if(db.getUser().getLocalPoliticianSetting()){
+                getLocation();
+            }
+        }
+
     }
 
     /**
@@ -210,6 +231,10 @@ public class Match extends AppCompatActivity {
                         Intent intent = new Intent(Match.this, TutorialOverlay.class);
                         startActivity(intent);
                     }
+
+                    if(db.getUser().getLocalPoliticianSetting()){
+                        getLocation();
+                    }
                     timer.cancel();
                     timer.purge();
                 }
@@ -250,5 +275,25 @@ public class Match extends AppCompatActivity {
         Intent intent = new Intent(this,Settings.class);
         startActivity(intent);
     }
+
+    public void getLocation() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        mLastLocation = location;
+                    } else {
+                        mLastLocation = new Location("");
+                        mLastLocation.setLatitude(10);
+                        mLastLocation.setLongitude(10);
+                    }
+                    Log.e("Location","lat: " + mLastLocation.getLatitude()+" lon: "+mLastLocation.getLongitude());
+
+                }
+            });
+        }
+    }
+
 
 }
