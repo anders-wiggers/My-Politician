@@ -44,7 +44,7 @@ public class Statistics extends AppCompatActivity{
     private Map<String,Integer> partyPercentages;
     private Map<String, Integer> blockPercentages;
     private RelativeLayout relativeLayout;
-    private List<Integer> partyColors;
+    private Map<Integer,String> partyColors;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -154,16 +154,18 @@ public class Statistics extends AppCompatActivity{
 
         //Add entries
         pieEntriesParty = new ArrayList<>();
-        partyColors = new ArrayList<>();
+        partyColors = new HashMap<>();
         addPartyEntriesToPie();
 
         PieDataSet pieDataSet = new PieDataSet(pieEntriesParty, "Party distribution");
         pieDataSet.setSliceSpace(3f);
         pieDataSet.setSelectionShift(5f);
-        int[] arr = new int[partyColors.size()];
-        for(int i = 0;i<partyColors.size();i++){
-            arr[i] = partyColors.get(i);
-            Log.e("test",partyColors.get(i)+"");
+        List<Integer> color = new ArrayList<>(partyColors.keySet());
+
+        int[] arr = new int[color.size()];
+        for(int i = 0;i<color.size();i++){
+            arr[i] = color.get(i);
+            Log.e("test",color.get(i)+"");
         }
         pieDataSet.setColors(arr);
         PieData pieData = new PieData(pieDataSet);
@@ -243,7 +245,7 @@ public class Statistics extends AppCompatActivity{
                         for(Party po : paries){
                             if(p.getParty().equals(po.getName())) color = po.getColor();
                         }
-                        partyColors.add(color);
+                        partyColors.put(color,null);
                     }
                     else {
                         partyPercentages.put(p.getParty(),1);
@@ -251,7 +253,7 @@ public class Statistics extends AppCompatActivity{
                         for(Party po : paries){
                             if(p.getParty().equals(po.getName())) color = po.getColor();
                         }
-                        partyColors.add(color);
+                        partyColors.put(color,null);
                     }
                 }
             }
