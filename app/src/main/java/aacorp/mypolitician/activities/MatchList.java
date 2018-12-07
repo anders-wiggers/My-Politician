@@ -48,6 +48,7 @@ public class MatchList extends AppCompatActivity {
 
         ((ListView) findViewById(R.id.listOfMatches)).setOnTouchListener(onSwipeTouchListener);
 
+        //check if the user has any entries.
         if(Database.getInstance().getUser().getLikedPoliticians().size()>0){
             findViewById(R.id.textView8).setVisibility(View.GONE);
             findViewById(R.id.textView9).setVisibility(View.GONE);

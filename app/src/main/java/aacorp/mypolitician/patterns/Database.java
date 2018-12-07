@@ -102,11 +102,13 @@ public class Database {
     }
 
 
-
     public Politician fetchLocalPolitician(){
             return null;
     }
 
+    /**
+     * Method that fill the database base with all danish parties.
+     */
     public void createParty(){
         Party party = new Party();
         party.setName("Dansk Folkeparti");
@@ -315,6 +317,10 @@ public class Database {
         return false;
     }
 
+    /**
+     * returns a fixed list of politicians
+     * @return List of politician implementations
+     */
     public List<PoliticianImpl> getPoliticiansFixed(){
         return politiciansFixed;
     }

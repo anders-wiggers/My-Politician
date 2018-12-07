@@ -38,34 +38,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:checked="false" />
 
-        <Switch
-            android:id="@+id/switch4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:background="@color/button_bg"
-            android:checked="false"
-            android:paddingBottom="15dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:paddingTop="15dp"
-            android:text="@string/enable_notifications"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.538"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:checked="false" />
-
         <Button
             android:id="@+id/button9"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:background="@color/button_bg"
             android:gravity="left|center_vertical"
-            android:onClick="resetMatches"
+            android:onClick="terms"
             android:paddingLeft="30dp"
-            style="?android:attr/borderlessButtonStyle"
             android:text="@string/terms_of_use"
             android:textAllCaps="false" />
 
@@ -85,17 +67,16 @@
 
         <Button
             android:id="@+id/button8"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:background="@color/button_bg"
             android:gravity="left|center_vertical"
-            android:onClick="logout"
+            android:onClick="logoutDialog"
             android:paddingLeft="30dp"
             android:text="@string/logout"
-            android:textAllCaps="false"
-            style="?android:attr/borderlessButtonStyle"
-            />
+            android:textAllCaps="false" />
 
     </LinearLayout>
 

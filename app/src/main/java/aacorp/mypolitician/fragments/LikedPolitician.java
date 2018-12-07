@@ -1,3 +1,10 @@
+/**
+ * Handles the framgent that represent the full politician when liked
+ * Copyright (c) 2018.
+ * @author Anders Bille Wiggers
+ * for Introduction-to-Human-Computer-InteractionI course.
+ *
+ */
 package aacorp.mypolitician.fragments;
 
 import android.graphics.Color;
@@ -30,15 +37,17 @@ public class LikedPolitician extends Fragment {
         md = MoveData.getInstance();
         Politician politician = md.getPolitician();
 
-
+        //find textfields
         TextView name = view.findViewById(R.id.puNameBox);
         TextView party = view.findViewById(R.id.puPartyBox);
 
         CircularImageView profilePicture = view.findViewById(R.id.fullPolitician_pb);
         ImageView bannerPicture = view.findViewById(R.id.puBannerPic);
 
-               List<Party> paries = Database.getInstance().getParties();
 
+        List<Party> paries = Database.getInstance().getParties(); //get parites from database
+
+        //find the color of the party
         int color = Color.BLACK;
         for(Party p : paries){
             if(politician.getParty().equals(p.getName())) color = p.getColor();
@@ -46,6 +55,7 @@ public class LikedPolitician extends Fragment {
 
         profilePicture.setShadowColor(color);
 
+        //load in the image with glide
         Glide.with(getContext())
                 .load(politician.getProfilePictureId())
                 .into(profilePicture);
@@ -55,6 +65,7 @@ public class LikedPolitician extends Fragment {
                 .into(bannerPicture);
 
 
+        //set the name
         name.setText(politician.getName());
         party.setText(politician.getParty());
 

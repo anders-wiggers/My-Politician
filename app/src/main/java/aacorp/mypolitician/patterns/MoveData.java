@@ -14,6 +14,7 @@ import aacorp.mypolitician.framework.Politician;
 public class MoveData {
     private static MoveData instance;
     private Politician politician;
+    private boolean reset;
 
     protected MoveData(){
 
@@ -30,11 +31,34 @@ public class MoveData {
         return instance;
     }
 
-
+    /**
+     * sets politcian to move
+     * @param politician
+     */
     public void setPolitician(Politician politician){
         this.politician = politician;
     }
 
+    /**
+     * returns the statis of the has reset toggle
+     * @return boolean has reset
+     */
+    public boolean hasReset(){
+        return reset;
+    }
+
+    /**
+     * toggle the has reset boolean use when match is resumed
+     */
+    public void toggleHasReset(){
+        if(reset) {reset = false;}
+        else {reset = true;}
+    }
+
+    /**
+     * returns the politician to move
+     * @return politician that has been set
+     */
     public Politician getPolitician() {
         return politician;
     }

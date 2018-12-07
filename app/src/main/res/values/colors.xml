@@ -8,4 +8,11 @@
     <color name="strengthBarBg">#E9EAEC</color>
     <color name="button_bg">#fcfcfc</color>
     <color name="settings_bg">#f2f2f2</color>
+    <color name="redButton">#E74C3C</color>
+    <color name="blueButton">#2980B9</color>
+    <color name="greenButton">#B2E380</color>
+    <color name="white">#fff</color>
+
+
+
 </resources>

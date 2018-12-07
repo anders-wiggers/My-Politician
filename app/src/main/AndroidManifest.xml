@@ -70,10 +70,6 @@
             android:configChanges="orientation"
             android:label="@string/title_activity_statistics"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.SwipeMain"
-            android:label="@string/title_activity_swipe_main"
-            android:screenOrientation="portrait"></activity>
         <activity android:name=".activities.FullPolitician"></activity>
     </application>
 

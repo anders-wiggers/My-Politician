@@ -1,3 +1,14 @@
+/**
+ *  Adapter for the LikedPoliticans in Match List
+ *
+ *  Handles generation of the ListView in match list class.
+ *
+ *  @author Anders Bille Wiggers
+ *  for Introduction-to-Human-Computer-InteractionI course.
+ *  Copyright (c) 2018
+ *
+ */
+
 package aacorp.mypolitician.adapters;
 
 import android.content.Context;
@@ -35,41 +46,64 @@ public class LikedPoliticianListAdapter extends ArrayAdapter<PoliticianImpl> {
     private Context context;
     private Database db = Database.getInstance();
 
+    /**
+     * Constructor to the adapter
+     * @param context the current context
+     * @param resource current resource
+     * @param objects list of politicians
+     */
     public LikedPoliticianListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<PoliticianImpl> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
     }
 
+
+    /**
+     * Set the view for the each Liked politician
+     * @param position the current position
+     * @param convertView a view
+     * @param parent the group parent
+     * @return view with a liked politician
+     */
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        convertView = inflater.inflate(resource,parent,false);
+        convertView = inflater.inflate(resource,parent,false);//get the view
 
+        //find name textView
         TextView name = convertView.findViewById(R.id.listPoliticianName);
+        //set name textView
         name.setText(getItem(position).getName());
 
+        //find Circular ImageView
         CircularImageView profilePicture = convertView.findViewById(R.id.fullPolitician_pb);
 
+        //import list of parties from database
         List<Party> paries = Database.getInstance().getParties();
 
+        //sort for party color
         int color = Color.BLACK;
         for(Party p : paries){
             if(getItem(position).getParty().equals(p.getName())) color = p.getColor();
         }
 
+        //set the shadow color to the party color
         profilePicture.setShadowColor(color);
 
+        //load image with glide from firebase
         Glide.with(getContext())
                 .load(getItem(position).getProfilePictureId())
                 .into(profilePicture);
 
+        //find deletebutton and confirm button
         ImageView deleteButton = convertView.findViewById(R.id.removePolitician);
         final Button confirmButton = convertView.findViewById(R.id.confirmationDelete);
 
         convertView.findViewById(R.id.constraintLayout2).setClickable(true);
 
+        //Set onClickListerners for buttons
         convertView.findViewById(R.id.constraintLayout2).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

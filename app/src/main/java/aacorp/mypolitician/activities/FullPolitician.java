@@ -1,3 +1,10 @@
+/**
+ * Handles the view of the full politician
+ * Copyright (c) 2018.
+ * @author Anders Bille Wiggers
+ * for Introduction-to-Human-Computer-InteractionI course.
+ *
+ */
 package aacorp.mypolitician.activities;
 
 import android.graphics.Color;
@@ -26,32 +33,40 @@ public class FullPolitician extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setTitle("Your Matches");  // provide compatibility to all the versions
+        getSupportActionBar().setTitle("Your Matches");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_politician);
-        politician = MoveData.getInstance().getPolitician();
-        updateUI();
+        politician = MoveData.getInstance().getPolitician(); //fetches politician from moveData
+        updateUI(); //updates UI
     }
 
+    /**
+     * Update the ui to when all the data is ready
+     */
     private void updateUI(){
         expandableListView = (ExpandableListView) findViewById(R.id.fullPoliticianList);
         ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
         expandableListView.setAdapter(adapter);
+
+        //finds the names textview
         TextView name = findViewById(R.id.fullPolitician);
         TextView party = findViewById(R.id.fullParty);
 
+        //finds the circular image view and banner view
         CircularImageView profilePicture = findViewById(R.id.fullPolitician_pb);
         ImageView bannerPicture = findViewById(R.id.fullCover);
 
-        List<Party> paries = Database.getInstance().getParties();
+        //finds the list of parties
+        List<Party> parties = Database.getInstance().getParties();
 
         int color = Color.BLACK;
-        for(Party p : paries){
+        for(Party p : parties){
             if(politician.getParty().equals(p.getName())) color = p.getColor();
         }
 
         profilePicture.setShadowColor(color);
 
+        //load image with glide
         Glide.with(this)
                 .load(politician.getProfilePictureId())
                 .into(profilePicture);
@@ -61,6 +76,7 @@ public class FullPolitician extends AppCompatActivity {
                 .into(bannerPicture);
 
 
+        //set name and party
         name.setText(politician.getName());
         party.setText(politician.getParty());
 

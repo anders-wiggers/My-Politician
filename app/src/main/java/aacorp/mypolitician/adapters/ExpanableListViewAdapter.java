@@ -43,10 +43,11 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
         this.context = context;
         this.match = match;
 
+        //initialize the groups
         groupNames = new String[match.getStrength().size()];
         childNames = new String[match.getStrength().size()][1];
 
-        inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); //set inflater
 
         int i=0;
         for(Strength s : match.getStrength().values()){         //retrieving the text and percent from the politicians strengths
@@ -56,36 +57,71 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
         }
     }
 
+    /**
+     * set group count
+     * @return group length
+     */
     @Override
     public int getGroupCount() {
         return groupNames.length;
     }
 
+    /**
+     * returns the children count
+     * @param groupPosition the current postion in the array
+     * @return the child count
+     */
     @Override
     public int getChildrenCount(int groupPosition) {
         return childNames[groupPosition].length;
     }
 
+    /**
+     * get the current group
+     * @param groupPosition the current postion
+     * @return
+     */
     @Override
     public Object getGroup(int groupPosition) {
         return groupNames[groupPosition];
     }
 
+    /**
+     * get the current child
+     * @param groupPosition postionten
+     * @param childPosition the current child position
+     * @return a politician
+     */
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return childNames[groupPosition][childPosition];
     }
 
+    /**
+     * get the group id
+     * @param groupPosition current position
+     * @return the group id
+     */
     @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
+    /**
+     * get the child id
+     * @param groupPosition group position
+     * @param childPosition child position
+     * @return the child id
+     */
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
+    /**
+     * Not used
+     * @return always returns false
+     */
     @Override
     public boolean hasStableIds() {
         return false;
@@ -98,16 +134,7 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
-        /*
-        LinearLayout linearLayout = new LinearLayout(context);
-        ProgressBar pb = new ProgressBar(context,null,android.R.attr.progressBarStyleHorizontal);
-        pb.setProgress(Integer.parseInt(groupNames[groupPosition]));
-
-        pb.getProgressDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN); //Setting color
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 60);
-        pb.setLayoutParams(params );
-        */
-        if(view == null)
+        if(view == null) //Check if null
         {
             view=inflater.inflate(R.layout.politician_bar, null);
         }
@@ -135,8 +162,8 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final TextView textView = new TextView(context);
-        textView.setText(childNames[groupPosition][childPosition]);
+        final TextView textView = new TextView(context); // find text view
+        textView.setText(childNames[groupPosition][childPosition]); //set text
         return textView;
     }
 

@@ -1,5 +1,6 @@
 /**
  * @Author Alex Krogh Smythe
+ * @Author Anders Bille Wiggers
  * This is the statistics class. After implementing our main features of
  * fetching and like/disliking the politicians we will implement a way to show statistics
  *
@@ -221,13 +222,6 @@ public class Statistics extends AppCompatActivity{
                             else {
                                 blockPercentages.put(party.getColorOfBlock(),blockPercentages.get(party.getColorOfBlock())+1);
                             }
-                           /* if (blockPercentages.containsKey(party.getColorOfBlock())){
-                                blockPercentages.put(party.getColorOfBlock(),blockPercentages.get(party.getColorOfBlock())+1);
-                            }
-
-                            else {
-                                blockPercentages.put(party.getColorOfBlock(),1);
-                            }*/
                         }
                     }
                 }

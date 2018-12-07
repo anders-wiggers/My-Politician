@@ -23,7 +23,6 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,14 +48,18 @@ public class Match extends AppCompatActivity {
     private ImageView politician_page;
     private ImageView nextPoliticianPage;
     private ConstraintLayout constraintLayout;
+    private ConstraintLayout loading;
+    private ConstraintLayout outOfPoliticians;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
-        waitForDatabase();
+        waitForDatabase(); //Start time to check for the database
 
         //set views
+        loading = findViewById(R.id.loading);
+        outOfPoliticians = findViewById(R.id.outOfPoliticians);
         removePreview = findViewById(R.id.removePreview);
         frag_container = findViewById(R.id.fragment_container);
         politician_page = findViewById(R.id.politician_page);
@@ -89,10 +92,16 @@ public class Match extends AppCompatActivity {
         constraintLayout.setOnTouchListener(onSwipeTouchListener);
     }
 
+    /**
+     * Fetches a new politician on resume
+     */
     @Override
     protected void onResume() {
         super.onResume();
-        if(user!=null) fetchNewPolitician();
+        if(MoveData.getInstance().hasReset()){
+            fetchNewPolitician();
+            MoveData.getInstance().toggleHasReset();
+        }
     }
 
     /**
@@ -108,29 +117,7 @@ public class Match extends AppCompatActivity {
         expandableListView = (ExpandableListView) findViewById(R.id.eList);
         ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
         expandableListView.setAdapter(adapter);
-    }
-
-    //TODO GRACEFULLY HANDLE OUT OF POLITICIANS :)
-
-    /**
-     * feches new politician from the Database
-     */
-    public void fetchLocalPolitician(){
-        if(db.getUser().getLocalPoliticianSetting()) {
-            if (db.hasNextPolitician()) {
-                politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateView(); }});
-            } else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(Match.this, "we're out of local politicians. Allow all politician in settings", Toast.LENGTH_SHORT).show(); }}); }
-        } else {
-            fetchNewPolitician();
-        }
+        loading.setVisibility(View.GONE);
     }
 
     public void fetchNewPolitician() {
@@ -142,11 +129,12 @@ public class Match extends AppCompatActivity {
                     updateView();
                 }
             });
+            outOfPoliticians.setVisibility(View.GONE);
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(Match.this, "we're out of politicians", Toast.LENGTH_SHORT).show();
+                    outOfPoliticians.setVisibility(View.VISIBLE);
                 }
             });
         }
