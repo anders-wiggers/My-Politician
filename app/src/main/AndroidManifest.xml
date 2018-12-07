@@ -73,8 +73,11 @@
         <activity
             android:name=".activities.SwipeMain"
             android:label="@string/title_activity_swipe_main"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activities.FullPolitician"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.FullPolitician" />
+        <activity android:name=".activities.TutorialOverlay"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
