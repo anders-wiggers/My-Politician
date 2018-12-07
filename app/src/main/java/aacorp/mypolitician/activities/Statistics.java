@@ -41,10 +41,10 @@ public class Statistics extends AppCompatActivity{
     private PieChart pieChartBlock;
     private List<PieEntry> pieEntriesParty;
     private List<PieEntry> pieEntriesBlock;
-    private Map<String,Integer> partyPercentages;
+    private Map<String,List<Integer>> partyPercentages;
     private Map<String, Integer> blockPercentages;
     private RelativeLayout relativeLayout;
-    private Map<Integer,String> partyColors;
+    private List<Integer> partyColors;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -154,23 +154,28 @@ public class Statistics extends AppCompatActivity{
 
         //Add entries
         pieEntriesParty = new ArrayList<>();
-        partyColors = new HashMap<>();
+        partyColors = new ArrayList<>();
         addPartyEntriesToPie();
 
         PieDataSet pieDataSet = new PieDataSet(pieEntriesParty, "Party distribution");
         pieDataSet.setSliceSpace(3f);
         pieDataSet.setSelectionShift(5f);
-        List<Integer> color = new ArrayList<>(partyColors.keySet());
 
-        int[] arr = new int[color.size()];
-        for(int i = 0;i<color.size();i++){
-            arr[i] = color.get(i);
-            Log.e("test",color.get(i)+"");
+        List<Integer> colors = new ArrayList<>();
+
+        for(List<Integer> i : partyPercentages.values()){
+            colors.add(i.get(1));
+        }
+
+        int[] arr = new int[colors.size()];
+        for(int i = 0;i<colors.size();i++){
+            arr[i] = colors.get(i);
+            Log.e("test",colors.get(i)+"");
         }
         pieDataSet.setColors(arr);
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextSize(10f);
-        pieData.setValueTextColor(Color.YELLOW);
+        pieData.setValueTextColor(Color.WHITE);
         pieChart.setData(pieData);
     }
 
@@ -178,7 +183,7 @@ public class Statistics extends AppCompatActivity{
         partyPercentages.clear();
         addPartyEntriesToPercentage();
         for (String key : partyPercentages.keySet()){
-            pieEntriesParty.add(new PieEntry(partyPercentages.get(key),key));
+            pieEntriesParty.add(new PieEntry(partyPercentages.get(key).get(0),key));
         }
     }
 
@@ -240,20 +245,30 @@ public class Statistics extends AppCompatActivity{
             for (String id : politicianIDs) {
                 if (id.equals(p.getId())){
                     if(partyPercentages.containsKey(p.getParty())){
-                        partyPercentages.put(p.getParty(),partyPercentages.get(p.getParty())+1);
+                        List<Integer> partyList = new ArrayList<>();
+                        int amount = partyPercentages.get(p.getParty()).get(0)+1;
                         int color = Color.BLACK;
                         for(Party po : paries){
                             if(p.getParty().equals(po.getName())) color = po.getColor();
                         }
-                        partyColors.put(color,null);
+                        partyList.add(amount);
+                        partyList.add(color);
+
+                        partyPercentages.put(p.getParty(),partyList);
+                        partyColors.add(color);
                     }
                     else {
-                        partyPercentages.put(p.getParty(),1);
+                        List<Integer> partyList = new ArrayList<>();
+                        int amount = 1;
                         int color = Color.BLACK;
                         for(Party po : paries){
                             if(p.getParty().equals(po.getName())) color = po.getColor();
                         }
-                        partyColors.put(color,null);
+                        partyList.add(amount);
+                        partyList.add(color);
+
+                        partyPercentages.put(p.getParty(),partyList);
+                        partyColors.add(color);
                     }
                 }
             }
