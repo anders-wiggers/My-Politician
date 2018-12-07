@@ -133,7 +133,7 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
     }
 
 
-    //Send user to next page if the login is successful
+    //Send user to tutorial if first succesfull login -> else the match page
     public void updateUI(FirebaseUser user){
         db.setUser(user);
         Intent MatchIntent = new Intent(LogIn.this, TutorialOverlay.class);
