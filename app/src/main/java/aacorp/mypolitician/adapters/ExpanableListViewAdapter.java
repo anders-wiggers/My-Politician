@@ -148,9 +148,18 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
         //SET IMAGE
         String icon = (String) match.getStrength().keySet().toArray()[groupPosition];
         if(icon.equals(Constants.DEFENCE_ICON)) img.setImageResource(R.drawable.def);
-        if(icon.equals(Constants.WORLD_ICON)) img.setImageResource(R.drawable.wor);
-        if(icon.equals(Constants.ENVIRONMENT_ICON)) img.setImageResource(R.drawable.env);
-        if(icon.equals(Constants.MONEY_ICON)) img.setImageResource(R.drawable.mon);
+        else if(icon.equals(Constants.WORLD_ICON)) img.setImageResource(R.drawable.wor);
+        else if(icon.equals(Constants.ENVIRONMENT_ICON)) img.setImageResource(R.drawable.env);
+        else if(icon.equals(Constants.MONEY_ICON)) img.setImageResource(R.drawable.mon);
+        else if(icon.equals(Constants.EDUCATION_ICON)) img.setImageResource(R.drawable.edu);
+        else if(icon.equals(Constants.ACTIVITY_ICON)) img.setImageResource(R.drawable.act);
+        else if(icon.equals(Constants.CULTURE_ICON)) img.setImageResource(R.drawable.cul);
+        else if(icon.equals(Constants.ORGANIC_ICON)) img.setImageResource(R.drawable.org);
+        else if(icon.equals(Constants.FREEDOM_ICON)) img.setImageResource(R.drawable.fre);
+
+
+
+
 
         return view;
     }

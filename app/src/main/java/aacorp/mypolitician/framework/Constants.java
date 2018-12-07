@@ -12,6 +12,16 @@ public class Constants {
     public static final String WORLD_ICON = "wor";
     public static final String ENVIRONMENT_ICON = "env";
     public static final String MONEY_ICON = "mon";
+    public static final String EDUCATION_ICON = "edu";
+    public static final String ACTIVITY_ICON = "act";
+    public static final String CULTURE_ICON = "cul";
+    public static final String ORGANIC_ICON = "org";
+    public static final String FREEDOM_ICON = "fre";
+
+
+
+
+
 
     /**
      * Calculate distance between two points in latitude and longitude taking

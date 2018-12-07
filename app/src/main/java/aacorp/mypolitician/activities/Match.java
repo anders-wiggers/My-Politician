@@ -145,10 +145,10 @@ public class Match extends AppCompatActivity {
     }
 
     /**
-     * fetches a
+     * fetches a random politician
      */
     public void fetchNewPolitician() {
-        if(db.getUser().getLocalPoliticianSetting()){
+        if(db.getUser().getLocalPoliticianSetting()){ //fetches a local politician if enabled
             if (db.hasNextPolitician(new GeoPoint(mLastLocation.getLatitude(),mLastLocation.getLongitude()))) {
                 politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
                 runOnUiThread(new Runnable() {
@@ -283,11 +283,6 @@ public class Match extends AppCompatActivity {
      */
     private void loadFragment(){
         LikedPolitician myf = new LikedPolitician();
-
-        Bundle bundle = new Bundle();
-        bundle.putString("name", politician.getName());
-        bundle.putString("party",politician.getParty());
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, myf);
         transaction.commit();

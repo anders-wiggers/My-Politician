@@ -167,25 +167,164 @@ public class Database {
         StrengthImpl s2 = new StrengthImpl();
         Map<String,StrengthImpl> sl = new HashMap<>();
 
-        s.setPercent(80);
+        s.setPercent(70);
         s.setText("Skolerne skal undervise børn tidligt i ekstreme holdninger:\n" +
                 "\n" +
                 "- Jo tidligere, jo bedre. Og vi er så heldige, at vi modsat de radikale miljøer har skolen som en unik vej til at påvirke børn og unge");
+        sl.put("edu",s);
+
+        s1.setText("Der er forskellige behov i vores områder, det er nemt at sige til alle dagtilbud at alle skal gøre som dem der får mest ud af midlerne – det ønsker jeg ikke at diktere, lokalt ved man bedst hvordan midlerne bedst gør gavn.\n" +
+                "\n" +
+                "Derfor har jeg også afsat 28 millioner kroner til 70 nye pædagoger.\n" +
+                "\n");
+        s1.setPercent(55);
+        sl.put("mon",s1);
+
+        s2.setText("Jeg har sikret, at der er afsat midler til yderlige tre nye kunststofgræsbaner i Aarhus. Midlerne er fundet ved et forslag fra mit parti om, at nedlægge et kommunalt beskæftigelsesprojekt.\n" +
+                "\n" +
+                "Mit mål er, at Aarhus skal have en bane for hver 14.000 indbyggere. Det betyder, at der skal etableres 13 flere kunststofbaner.\n" +
+                "\n" +
+                "I dag har Aarhus en bane for hver 34.000 borger, og i København er der en for hver 17.000.");
+        s2.setPercent(30);
+        sl.put("act",s2);
+
+
+        politician.setStrength(sl);
+
+        System.out.println(politician.toString());
+
+
+        db.collection("politicians").document(myId).set(politician);
+
+        ref = db.collection("politicians").document();
+        myId = ref.getId();
+        politician.setName("JETTE SKIVE");
+        politician.setArea(new GeoPoint(56.1567,10.2108));
+        politician.setBannerId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fjette-skrive%2F23755079_941956259294663_1845532625494371532_n.jpg?alt=media&token=019abb00-7fae-4286-92ce-2c65bcfd903d");
+        politician.setParty("Dansk Folkeparti");
+        politician.setProfilePictureId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fjette-skrive%2Fjette-skive.jpg?alt=media&token=9812777d-0048-4773-bc6c-661b9d46a898");
+        politician.setIsMale(false);
+        politician.setId(myId);
+
+        s = new StrengthImpl();
+        s1 = new StrengthImpl();
+        s2 = new StrengthImpl();
+        sl = new HashMap<>();
+
+        s.setPercent(90);
+        s.setText("Jeg ønsker, at kommunens plejehjem skal være så hjemlige som muligt. Det har jeg kæmpet for i mine fire år som Rådmand for Sundhed og Omsorg. Vi har blandt andet fået den varme hjemmelavede mad tilbage på plejehjemmene og gjort det muligt for beboerne at dufte den friske mad blive lavet samtidig med, at vi har givet beboerne mulighed for at hjælpe til med at tilberede maden hvis de kan.");
+        sl.put("edu",s);
+
+        s1.setText("Kommunens personale er pressede, og der er stærkt brug for mere personale til at tage sig af et stigende antal ældre. Får vi ikke mere personale skal det nuværende personale løbe endnu hurtigere i fremtiden. Det kan vi ikke byde dem, og det vil komme til at gå ud over beboerne på kommunens plejehjem. Derfor kæmper jeg for flere varme hænder på ældreområdet i Århus!");
+        s1.setPercent(80);
+        sl.put("mon",s1);
+
+        s2.setText("På kulturområdet så jeg gerne, at vi i Århus Kommune foretog en anden prioritering af kulturmidlerne. Efter min mening bliver de i dag spredt alt for meget ud over alt for mange forskellige områder og projekter. Jeg så gerne, at man i fremtiden prioriterede mere kvalitetskultur, hvor det er dansk kultur og traditioner, der er i højsædet.");
+        s2.setPercent(70);
+        sl.put("cul",s2);
+
+
+        politician.setStrength(sl);
+
+        System.out.println(politician.toString());
+
+
+        db.collection("politicians").document(myId).set(politician);
+
+        ref = db.collection("politicians").document();
+        myId = ref.getId();
+        politician.setName("Franciska Rosenkilde");
+        politician.setArea(new GeoPoint(55.662,12.5729));
+        politician.setBannerId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Ffranciska-rosenkilde%2F21151298_1527625440630927_5334454527136855996_n.jpg?alt=media&token=1e34d4f0-e1f1-4a7b-b9a9-1a5385107d43");
+        politician.setParty("Alternativet");
+        politician.setProfilePictureId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Ffranciska-rosenkilde%2Fbro_20171207_br_franciska_rosenkilde_1030-edit%20copy.jpg?alt=media&token=8fed74f2-8f38-4ec4-87aa-f03ee958a662");
+        politician.setIsMale(false);
+        politician.setId(myId);
+
+        s = new StrengthImpl();
+        s1 = new StrengthImpl();
+        s2 = new StrengthImpl();
+        sl = new HashMap<>();
+
+        s.setPercent(90);
+        s.setText("Vores landbrug og fødevareproduktion skal være 100% økologisk. Vi skal have giftfri og næringsrige fødevare. Vi skal have et renere miljø, der også skal kunne dyrkes i fremtiden. Vi skal have højere dyrevelfærd, så dyret er i fokus ikke produktionen.");
+        sl.put("org",s);
+
+        s1.setText("Vi er nød til at sætte klimaet øverst på dagsordenen i EU, så al udvikling er miljømæssig bæredygtig");
+        s1.setPercent(80);
+        sl.put("env",s1);
+
+        s2.setText("Det skal altid være gratis at gå til lægen");
+        s2.setPercent(70);
+        sl.put("mon",s2);
+
+
+        politician.setStrength(sl);
+
+        System.out.println(politician.toString());
+
+
+        db.collection("politicians").document(myId).set(politician);
+
+        //new politician
+        ref = db.collection("politicians").document();
+        myId = ref.getId();
+        politician.setName("Mette Bock");
+        politician.setArea(new GeoPoint(55.662,12.5729));
+        politician.setBannerId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fmette-bock%2Fforside_desktop2.png?alt=media&token=261f3a13-9f2b-4e06-8ea3-2b5d3544715e");
+        politician.setParty("Liberal Alliance");
+        politician.setProfilePictureId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fmette-bock%2FMette_Bock_500.jpg.jpg?alt=media&token=51271f08-5dc5-4588-bf35-329490f83aef");
+        politician.setIsMale(false);
+        politician.setId(myId);
+
+        s = new StrengthImpl();
+        s1 = new StrengthImpl();
+        s2 = new StrengthImpl();
+        sl = new HashMap<>();
+
+        s.setPercent(100);
+        s.setText("Jeg ønsker mindre stat og mere privat. En begrænset statsmagt, lav skat, en robust grundlov, uafhængige domstole og klare individuelle rettigheder er en forudsætning for et frit samfund. Jeg tror på medborgerskab, hvor respekten for menneskenes ligeværd og de demokratiske spilleregler er grundlaget for samfundets organisering.");
         sl.put("mon",s);
 
-        s1.setText("\n" +
-                "Aarhus skal være en tryg by. Vi skal alle passe på hinanden, fordi tryghed skabes i stærke, inkluderende og forpligtende fællesskaber. " +
-                "Vi skal sætte hårdt ind over for bander, organiseret kriminalitet og parallelsamfund, der melder sig ud af Aarhus. Alle aarhusianere skal vide, " +
-                "at vi bor i en by, som rækker hånden ud, hvis behovet opstår. Og vi skal vide, at vi selv har en forpligtelse til at bidrage, når vi er en del af Aarhus. ");
+        s1.setText("Jeg tror på frihed under ansvar. Personligt ansvar er en naturlig følge af den personlige frihed. Man er ansvarlig for sine succeser såvel som sine fiaskoer. Ligesom man får mulighed for at høste frugterne af sin egen indsats og succes, må man acceptere at nedsætte sin levestandard, hvis man enten sløser med sine muligheder eller blot er uheldig.");
         s1.setPercent(60);
-        sl.put("def",s1);
+        sl.put("fre",s1);
 
-        s2.setText("I Aarhus tager vi ansvar over for naturen, vores klima og vores fremtid. Vi skal gøre Aarhus grønnere, og byens borgere skal sammen kunne nyde " +
-                "den fantastiske aarhusianske natur. At være en grøn by betyder også, at vi skal gå forrest med ambitiøse målsætninger for at reducere vores fælles " +
-                "påvirkning af klimaet. Vi skylder vores børn og børnebørn at aflevere et grønnere Aarhus end det, vi overtog. Vores natur er en del af Aarhus, " +
-                "og den skal vi passe på.");
-        s2.setPercent(40);
-        sl.put("env",s2);
+        s2.setText("Jeg ønsker mindre stat og mere privat. En begrænset statsmagt, lav skat, en robust grundlov, uafhængige domstole og klare individuelle rettigheder er en forudsætning for et frit samfund. Jeg tror på medborgerskab, hvor respekten for menneskenes ligeværd og de demokratiske spilleregler er grundlaget for samfundets organisering.");
+        s2.setPercent(50);
+        sl.put("def",s2);
+
+
+        politician.setStrength(sl);
+
+        System.out.println(politician.toString());
+
+
+        db.collection("politicians").document(myId).set(politician);
+
+        //new politician
+        ref = db.collection("politicians").document();
+        myId = ref.getId();
+        politician.setName("Jacob Mark");
+        politician.setArea(new GeoPoint(55.662,12.5729));
+        politician.setBannerId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fjacob-mark%2F26165476_10155547076463411_1407688060456158526_n.jpg?alt=media&token=dea973b5-d3fa-4af5-8258-78d15ff783b8");
+        politician.setParty("Socialistisk Folkeparti");
+        politician.setProfilePictureId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fjacob-mark%2FJacob_Mark_500.jpg.jpg?alt=media&token=78053c8a-24a1-4cb9-9b25-c41a96321c9c");
+        politician.setIsMale(true);
+        politician.setId(myId);
+
+        s = new StrengthImpl();
+        s1 = new StrengthImpl();
+        s2 = new StrengthImpl();
+        sl = new HashMap<>();
+
+        s.setPercent(80);
+        s.setText("Danmark skal bygges på socialistiske værdier, og samfundet skal skabe størst mulig velfærd, velstand, frihed og flest muligheder for alle mennesker.");
+        sl.put("mon",s);
+
+        s1.setText("Det skal være lige så attraktivt at tage en erhvervsuddannelse som at gå i gymnasiet. Derfor skal adgangskravet til både gymnasier og erhvervsuddannelser være det samme.");
+        s1.setPercent(60);
+        sl.put("edu",s1);
 
 
         politician.setStrength(sl);
