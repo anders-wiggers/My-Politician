@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -120,6 +121,8 @@ public class Match extends AppCompatActivity {
         if(Database.getInstance().isAppReady()){
             if(db.getUser().getLocalPoliticianSetting()){
                 getLocation();
+            } else {
+                fetchNewPolitician();
             }
         }
 
@@ -141,23 +144,47 @@ public class Match extends AppCompatActivity {
         loading.setVisibility(View.GONE);
     }
 
+    /**
+     * fetches a
+     */
     public void fetchNewPolitician() {
-        if (db.hasNextPolitician()) {
-            politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    updateView();
-                }
-            });
-            outOfPoliticians.setVisibility(View.GONE);
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    outOfPoliticians.setVisibility(View.VISIBLE);
-                }
-            });
+        if(db.getUser().getLocalPoliticianSetting()){
+            if (db.hasNextPolitician(new GeoPoint(mLastLocation.getLatitude(),mLastLocation.getLongitude()))) {
+                politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateView();
+                    }
+                });
+                outOfPoliticians.setVisibility(View.GONE);
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        outOfPoliticians.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        }
+        else {
+            if (db.hasNextPolitician()) {
+                politician = db.fetchRandomPolitician(); //Set the current politician to a randomly fetched politician
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateView();
+                    }
+                });
+                outOfPoliticians.setVisibility(View.GONE);
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        outOfPoliticians.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
         }
         }
 
@@ -226,7 +253,6 @@ public class Match extends AppCompatActivity {
             @Override
             public void run() {
                 if(db.isAppReady()){
-                    fetchNewPolitician();
                     if(db.getUser().getLikedPoliticians().size() == 0 && db.getUser().getSeenPoliticians().size() == 0){
                         Intent intent = new Intent(Match.this, TutorialOverlay.class);
                         startActivity(intent);
@@ -234,6 +260,8 @@ public class Match extends AppCompatActivity {
 
                     if(db.getUser().getLocalPoliticianSetting()){
                         getLocation();
+                    }else {
+                        fetchNewPolitician();
                     }
                     timer.cancel();
                     timer.purge();
@@ -289,7 +317,7 @@ public class Match extends AppCompatActivity {
                         mLastLocation.setLongitude(10);
                     }
                     Log.e("Location","lat: " + mLastLocation.getLatitude()+" lon: "+mLastLocation.getLongitude());
-
+                    fetchNewPolitician();
                 }
             });
         }

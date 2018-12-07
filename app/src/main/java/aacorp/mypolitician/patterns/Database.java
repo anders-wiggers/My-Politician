@@ -14,6 +14,7 @@ package aacorp.mypolitician.patterns;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +34,7 @@ import java.util.Map;
 
 import aacorp.mypolitician.Implementation.PoliticianImpl;
 import aacorp.mypolitician.Implementation.StrengthImpl;
+import aacorp.mypolitician.framework.Constants;
 import aacorp.mypolitician.framework.Party;
 import aacorp.mypolitician.framework.Politician;
 import aacorp.mypolitician.framework.User;
@@ -152,11 +154,11 @@ public class Database {
         String myId = ref.getId();
 
         PoliticianImpl politician = new PoliticianImpl();
-        politician.setName("Jacob Bundsgaard");
+        politician.setName("BÜNYAMIN SIMSEK");
         politician.setArea(new GeoPoint(56.1567,10.2108));
-        politician.setBannerId("");
-        politician.setParty("Socialdemokratiet");
-        politician.setProfilePictureId("");
+        politician.setBannerId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fbunyamin-simsek%2F43765040_1142146165966554_4056712003958341632_o.jpg?alt=media&token=6eb82036-f699-4c78-9f3c-f7b8af8c8cb3");
+        politician.setParty("Venstre");
+        politician.setProfilePictureId("https://firebasestorage.googleapis.com/v0/b/my-politician-eb1be.appspot.com/o/politicians%2Fbunyamin-simsek%2Fbu-e%CC%82nyamin-simsek.jpg?alt=media&token=5dffc45b-67fd-4f40-8492-c0a6956da059");
         politician.setIsMale(true);
         politician.setId(myId);
 
@@ -166,7 +168,9 @@ public class Database {
         Map<String,StrengthImpl> sl = new HashMap<>();
 
         s.setPercent(80);
-        s.setText("Vi bor i en by i hastig udvikling. Generationer har gennem hårdt arbejde skabt vores by, og derfor har vi alle et ansvar for at gøre Aarhus endnu bedre – hvad end vi har boet her hele vores liv eller blev aarhusianere i sidste måned. Alle skal have del i fremtidens muligheder. Derfor skal vi sikre, at alle uanset uddannelse og baggrund kan bidrage. Der skal være plads til at tænke stort for os selv, for hinanden og for vores by. Vores drømme skal gøres til en del af Aarhus.");
+        s.setText("Skolerne skal undervise børn tidligt i ekstreme holdninger:\n" +
+                "\n" +
+                "- Jo tidligere, jo bedre. Og vi er så heldige, at vi modsat de radikale miljøer har skolen som en unik vej til at påvirke børn og unge");
         sl.put("mon",s);
 
         s1.setText("\n" +
@@ -289,20 +293,7 @@ public class Database {
      * like or dislike from the rest.
      */
     public void readyIndex(){
-        List<String> ids = new ArrayList<>();
-        ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
-        Iterator<PoliticianImpl> i = politicians.iterator();
-        while(i.hasNext()) {
-            Politician p = i.next();
-            for (String id : ids) {
-                if (id.equals(p.getId())) {
-                    i.remove();
-                }
-            }
-        }
-    }
-
-    public void readyLocalPoliticians(GeoPoint location){
+        politicians.addAll(politiciansFixed);
         List<String> ids = new ArrayList<>();
         ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
         Iterator<PoliticianImpl> i = politicians.iterator();
@@ -317,6 +308,31 @@ public class Database {
     }
 
     /**
+     *
+     * @param location
+     */
+    public void readyLocalPoliticians(GeoPoint location){
+        politicians.addAll(politiciansFixed);
+        List<String> ids = new ArrayList<>();
+        ids.addAll(user.getSeenPoliticians()); ids.addAll(user.getLikedPoliticians());
+        Iterator<PoliticianImpl> i = politicians.iterator();
+        while(i.hasNext()) {
+            boolean stopped = false;
+            Politician p = i.next();
+            for (String id : ids) {
+                if (id.equals(p.getId())) {
+                    i.remove();
+                    stopped = true;
+                }
+            }
+            if(Constants.distance(location.getLatitude(),p.getArea().getLatitude(),location.getLongitude(),p.getArea().getLongitude(),0,0)>50000 && !stopped){
+                Log.e("distance",Constants.distance(location.getLatitude(),p.getArea().getLatitude(),location.getLongitude(),p.getArea().getLongitude(),0,0)+"");
+                i.remove();
+            }
+        }
+    }
+
+    /**
      * check if there is any politicians left
      * @return boolean true/false if any politicians is left on the list.
      */
@@ -326,6 +342,19 @@ public class Database {
         if(hasNext) return true;
         return false;
     }
+
+    /**
+     *
+     * @param location
+     * @return
+     */
+    public boolean hasNextPolitician(GeoPoint location){
+        readyLocalPoliticians(location);
+        boolean hasNext = politicians.size()>0;
+        if(hasNext) return true;
+        return false;
+    }
+
 
     /**
      * returns a fixed list of politicians
