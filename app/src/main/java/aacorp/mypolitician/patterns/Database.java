@@ -109,9 +109,39 @@ public class Database {
 
     public void createParty(){
         Party party = new Party();
+        party.setName("Dansk Folkeparti");
+        party.setColor(Color.parseColor("#386891"));
+        party.setColorOfBlock("Blue block");
+        db.collection("parties").add(party);
+
+        party.setName("Venstre");
+        party.setColor(Color.parseColor("#4179A5"));
+        party.setColorOfBlock("Blue block");
+        db.collection("parties").add(party);
+
+        party.setName("Liberal Alliance");
+        party.setColor(Color.parseColor("#3F4E65"));
+        party.setColorOfBlock("Blue block");
+        db.collection("parties").add(party);
+
         party.setName("Alternativet");
-        party.setColor(Color.GREEN);
+        party.setColor(Color.parseColor("#54FD59"));
         party.setColorOfBlock("Red block");
+        db.collection("parties").add(party);
+
+        party.setName("Radikale Venstre");
+        party.setColor(Color.parseColor("#E21588"));
+        party.setColorOfBlock("Red block");
+        db.collection("parties").add(party);
+
+        party.setName("Socialistisk Folkeparti");
+        party.setColor(Color.parseColor("#B91026"));
+        party.setColorOfBlock("Red block");
+        db.collection("parties").add(party);
+
+        party.setName("Det Konservative Folkeparti");
+        party.setColor(Color.parseColor("#214A37"));
+        party.setColorOfBlock("Blue block");
         db.collection("parties").add(party);
     }
 
@@ -298,6 +328,7 @@ public class Database {
         user1.setSeenPoliticians(new ArrayList<String>());
         user1.setUsername(user.getUsername());
         user1.setEmail(user.getEmail());
+        user1.setLocalPoliticianSetting(user.getLocalPoliticianSetting());
         db.collection("users").document(user1.getUsername()).set(user1);
         user = user1;
         initialize();

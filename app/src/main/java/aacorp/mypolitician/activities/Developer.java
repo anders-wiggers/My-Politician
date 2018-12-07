@@ -61,10 +61,8 @@ public class Developer extends AppCompatActivity {
 
         */
         //Database.getInstance().createPolitician();
-        //Database.getInstance().createParty();
+        Database.getInstance().createParty();
 
-        Intent intent = new Intent(this,SwipeMain.class);
-        startActivity(intent);
     }
 
     public void statistics(View view){

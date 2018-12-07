@@ -77,6 +77,14 @@ public class Match extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
+
+            @Override
+            public void onSwipeBottom() {
+                Intent intent = new Intent(Match.this, Settings.class);
+                startActivity(intent);
+            }
+
+
         };
         constraintLayout.setOnTouchListener(onSwipeTouchListener);
     }

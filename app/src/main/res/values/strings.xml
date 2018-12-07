@@ -88,5 +88,8 @@
     <string name="reset">Reset Matches and Statistics</string>
     <string name="title_activity_swipe_main">SwipeMain</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="only_local_politicians">Only Show Local Politicians</string>
+    <string name="terms_of_use">Terms of Use</string>
 
 </resources>

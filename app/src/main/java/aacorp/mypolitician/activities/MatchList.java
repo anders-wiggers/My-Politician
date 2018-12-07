@@ -12,8 +12,8 @@ package aacorp.mypolitician.activities;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ import aacorp.mypolitician.patterns.Database;
 
 public class MatchList extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
+    private OnSwipeTouchListener onSwipeTouchListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +38,23 @@ public class MatchList extends AppCompatActivity {
 
         //Set swipe listener
         constraintLayout = findViewById(R.id.layoutMatchList);
-        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(MatchList.this){
+        onSwipeTouchListener = new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeLeft() {
-                Toast.makeText(MatchList.this, "top", Toast.LENGTH_SHORT).show();
+                finish();
             }
+        };
+        constraintLayout.setOnTouchListener(onSwipeTouchListener);
 
-        });
+        ((ListView) findViewById(R.id.listOfMatches)).setOnTouchListener(onSwipeTouchListener);
+
+        if(Database.getInstance().getUser().getLikedPoliticians().size()>0){
+            findViewById(R.id.textView8).setVisibility(View.GONE);
+            findViewById(R.id.textView9).setVisibility(View.GONE);
+            findViewById(R.id.textView10).setVisibility(View.GONE);
+        }
     }
+
 
     /**
      * updates the view with liked politicians fetches from the databse.

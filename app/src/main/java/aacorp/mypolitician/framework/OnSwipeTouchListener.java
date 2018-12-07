@@ -18,6 +18,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
     private final GestureDetector gestureDetector;
     private Context context;
 
+
     /* (non-Javadoc)
      * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
      */

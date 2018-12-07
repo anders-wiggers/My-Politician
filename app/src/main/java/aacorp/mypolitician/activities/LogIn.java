@@ -136,7 +136,7 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
     public void updateUI(FirebaseUser user){
         db.setUser(user);
         getLocation();
-        db.getUser().setLocation(mLastLocation);
+        //db.getUser().setLocation(mLastLocation);
         Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
         Intent MatchIntent = new Intent(LogIn.this, Match.class);
         startActivity(MatchIntent);

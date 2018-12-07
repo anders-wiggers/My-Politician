@@ -34,10 +34,10 @@ public class LikedPolitician extends Fragment {
         TextView name = view.findViewById(R.id.puNameBox);
         TextView party = view.findViewById(R.id.puPartyBox);
 
-        CircularImageView profilePicture = view.findViewById(R.id.puProfilePic);
+        CircularImageView profilePicture = view.findViewById(R.id.fullPolitician_pb);
         ImageView bannerPicture = view.findViewById(R.id.puBannerPic);
 
-        List<Party> paries = Database.getInstance().getParties();
+               List<Party> paries = Database.getInstance().getParties();
 
         int color = Color.BLACK;
         for(Party p : paries){

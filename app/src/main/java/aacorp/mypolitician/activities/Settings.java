@@ -8,8 +8,10 @@ package aacorp.mypolitician.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.facebook.login.LoginManager;
@@ -20,6 +22,7 @@ import aacorp.mypolitician.R;
 import aacorp.mypolitician.patterns.Database;
 
 public class Settings extends AppCompatActivity {
+    private Switch notification;
     private Switch localpol;
     private Database db;
     private GoogleApiClient mClient;
@@ -41,15 +44,15 @@ public class Settings extends AppCompatActivity {
 
         db = Database.getInstance();
 
-        localpol = (Switch) findViewById(R.id.localpoliticiansswitch);
-        localpol.setOnClickListener(new View.OnClickListener() {
+        localpol = findViewById(R.id.localpoliticiansswitch);
+        notification = findViewById(R.id.switch4);
+
+        localpol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                if (localpol.isChecked()) {
-                    localpol.toggle();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!localpol.isChecked()) {
                     db.updateLocalPoliticianSetting(false);
                 } else {
-                    localpol.toggle();
                     db.updateLocalPoliticianSetting(true);
                 }
             }
@@ -60,6 +63,9 @@ public class Settings extends AppCompatActivity {
         } else {
             localpol.setChecked(false);
         }
+        localpol.setTypeface(ResourcesCompat.getFont(this, R.font.avenirbook));
+        notification.setTypeface(ResourcesCompat.getFont(this, R.font.avenirbook));
+
     }
 
 

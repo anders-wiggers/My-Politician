@@ -7,6 +7,7 @@
 
 package aacorp.mypolitician.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,13 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.ScrollView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,8 +44,10 @@ public class Statistics extends AppCompatActivity{
     private Map<String,Integer> partyPercentages;
     private Map<String, Integer> blockPercentages;
     private RelativeLayout relativeLayout;
+    private List<Integer> partyColors;
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class Statistics extends AppCompatActivity{
         partyPercentages = new HashMap<>();
         blockPercentages = new HashMap<>();
         isAllowedAccess();
+
 
         relativeLayout = findViewById(R.id.relativeLayoutStats);
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(this) {
@@ -65,7 +68,12 @@ public class Statistics extends AppCompatActivity{
             }
         };
         relativeLayout.setOnTouchListener(onSwipeTouchListener);
-        Log.e("layout is set","yeee");
+        ((ScrollView) findViewById(R.id.statsScollView)).setOnTouchListener(new OnSwipeTouchListener(Statistics.this){
+            @Override
+            public void onSwipeRight(){
+                finish();
+            }
+        });
     }
 
     public void isAllowedAccess(){
@@ -76,9 +84,7 @@ public class Statistics extends AppCompatActivity{
             makeAllTextInvisible();
         }
         else {
-            Toast.makeText(Statistics.this, "You have to match with a politician before generating statistics", Toast.LENGTH_LONG).show();
             makeAllChartsInvisible();
-
         }
     }
 
@@ -117,7 +123,8 @@ public class Statistics extends AppCompatActivity{
         pieChartBlock.setDragDecelerationFrictionCoef(0.95f);
         pieChartBlock.setDrawHoleEnabled(true);
         pieChartBlock.setHoleColor(Color.WHITE);
-        pieChartBlock.setTransparentCircleRadius(61f);
+        pieChartBlock.setHoleRadius(30f);
+        pieChartBlock.setTransparentCircleRadius(30f);
 
         //Add entries
         this.pieEntriesBlock = new ArrayList<>();
@@ -126,10 +133,10 @@ public class Statistics extends AppCompatActivity{
         PieDataSet pieDataSet = new PieDataSet(pieEntriesBlock, "Distribution of blocks");
         pieDataSet.setSliceSpace(3f);
         pieDataSet.setSelectionShift(5f);
-        pieDataSet.setColors(new int[] {Color.BLUE,Color.RED});
+        pieDataSet.setColors(new int[] {-12486235,Color.parseColor("#E74C3C")});
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextSize(10f);
-        pieData.setValueTextColor(Color.YELLOW);
+        pieData.setValueTextColor(Color.WHITE);
         pieChartBlock.setData(pieData);
     }
 
@@ -142,16 +149,23 @@ public class Statistics extends AppCompatActivity{
         pieChart.setDragDecelerationFrictionCoef(0.95f);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(61f);
+        pieChart.setHoleRadius(30f);
+        pieChart.setTransparentCircleRadius(30f);
 
         //Add entries
-        this.pieEntriesParty = new ArrayList<>();
+        pieEntriesParty = new ArrayList<>();
+        partyColors = new ArrayList<>();
         addPartyEntriesToPie();
 
         PieDataSet pieDataSet = new PieDataSet(pieEntriesParty, "Party distribution");
         pieDataSet.setSliceSpace(3f);
         pieDataSet.setSelectionShift(5f);
-        pieDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        int[] arr = new int[partyColors.size()];
+        for(int i = 0;i<partyColors.size();i++){
+            arr[i] = partyColors.get(i);
+            Log.e("test",partyColors.get(i)+"");
+        }
+        pieDataSet.setColors(arr);
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextSize(10f);
         pieData.setValueTextColor(Color.YELLOW);
@@ -218,15 +232,26 @@ public class Statistics extends AppCompatActivity{
         List<String> politicianIDs = new ArrayList<>();
         Iterator<PoliticianImpl> i = db.getPoliticiansFixed().iterator();
         politicianIDs.addAll(db.getUser().getLikedPoliticians());
+        List<Party> paries = Database.getInstance().getParties();
         while (i.hasNext()) {
             Politician p = i.next();
             for (String id : politicianIDs) {
                 if (id.equals(p.getId())){
                     if(partyPercentages.containsKey(p.getParty())){
                         partyPercentages.put(p.getParty(),partyPercentages.get(p.getParty())+1);
+                        int color = Color.BLACK;
+                        for(Party po : paries){
+                            if(p.getParty().equals(po.getName())) color = po.getColor();
+                        }
+                        partyColors.add(color);
                     }
                     else {
                         partyPercentages.put(p.getParty(),1);
+                        int color = Color.BLACK;
+                        for(Party po : paries){
+                            if(p.getParty().equals(po.getName())) color = po.getColor();
+                        }
+                        partyColors.add(color);
                     }
                 }
             }
