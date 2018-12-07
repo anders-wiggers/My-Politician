@@ -71,6 +71,9 @@
             android:label="@string/title_activity_statistics"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.FullPolitician"></activity>
+        <activity android:name=".activities.TutorialOverlay"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

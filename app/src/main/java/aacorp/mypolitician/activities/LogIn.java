@@ -55,6 +55,7 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
     //Location
     public FusedLocationProviderClient mFusedLocationClient;
     public Location mLastLocation;
+    private int firstTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,13 +133,18 @@ public class LogIn extends Activity implements GoogleApiClient.OnConnectionFaile
     }
 
 
-    //Send user to next page if the login is successful
+    //Send user to tutorial if first succesfull login -> else the match page
     public void updateUI(FirebaseUser user){
         db.setUser(user);
+        Intent MatchIntent = new Intent(LogIn.this, TutorialOverlay.class);
+        if(db.getUser().getLikedPoliticians()==null){
+            MatchIntent = new Intent(LogIn.this, TutorialOverlay.class);
+        } else {
+            MatchIntent = new Intent(LogIn.this, Match.class);
+        }
+
         getLocation();
-        //db.getUser().setLocation(mLastLocation);
         Toast.makeText(LogIn.this, "You are logged in", Toast.LENGTH_LONG).show();
-        Intent MatchIntent = new Intent(LogIn.this, Match.class);
         startActivity(MatchIntent);
         finish();
     }

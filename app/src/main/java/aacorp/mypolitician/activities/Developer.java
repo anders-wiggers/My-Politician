@@ -49,6 +49,11 @@ public class Developer extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void Tutorial(View view){
+        Intent intent = new Intent(this, TutorialOverlay.class);
+        startActivity(intent);
+    }
+
     public void debug(View view){
         TextView textView = findViewById(R.id.textView);
 
