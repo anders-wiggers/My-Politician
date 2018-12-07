@@ -16,8 +16,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -213,6 +215,17 @@ public class Match extends AppCompatActivity {
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.animation_move_frag);
         frag_container.startAnimation(animation);
         frag_container.setVisibility(View.GONE);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after 1 animation
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag("liked");
+                if(fragment != null)
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+        }, 600);
+
     }
 
 
@@ -284,7 +297,7 @@ public class Match extends AppCompatActivity {
     private void loadFragment(){
         LikedPolitician myf = new LikedPolitician();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragment_container, myf);
+        transaction.add(R.id.fragment_container, myf,"liked");
         transaction.commit();
         frag_container.setVisibility(View.VISIBLE);
         removePreview.setVisibility(View.VISIBLE);
