@@ -205,9 +205,13 @@ public class Match extends AppCompatActivity {
             @Override
             public void run() {
                 if(db.isAppReady()){
-                 fetchNewPolitician();
-                 timer.cancel();
-                 timer.purge();
+                    fetchNewPolitician();
+                    if(db.getUser().getLikedPoliticians().size() == 0 && db.getUser().getSeenPoliticians().size() == 0){
+                        Intent intent = new Intent(Match.this, TutorialOverlay.class);
+                        startActivity(intent);
+                    }
+                    timer.cancel();
+                    timer.purge();
                 }
             }
         };

@@ -24,7 +24,6 @@ import aacorp.mypolitician.patterns.Database;
 import aacorp.mypolitician.patterns.MoveData;
 
 public class Settings extends AppCompatActivity {
-    private Switch notification;
     private Switch localpol;
     private Database db;
     private FirebaseAuth mAuth;
@@ -38,7 +37,6 @@ public class Settings extends AppCompatActivity {
         db = Database.getInstance(); //gets the db
 
         localpol = findViewById(R.id.localpoliticiansswitch);
-        notification = findViewById(R.id.switch4);
 
         //set on checked change listener
         localpol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -59,8 +57,6 @@ public class Settings extends AppCompatActivity {
             localpol.setChecked(false);
         }
         localpol.setTypeface(ResourcesCompat.getFont(this, R.font.avenirbook));
-        notification.setTypeface(ResourcesCompat.getFont(this, R.font.avenirbook));
-
     }
 
     /**
