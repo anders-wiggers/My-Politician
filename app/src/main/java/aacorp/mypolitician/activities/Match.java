@@ -63,6 +63,7 @@ public class Match extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
     private ConstraintLayout loading;
     private ConstraintLayout outOfPoliticians;
+    private ConstraintLayout backDrop;
 
     public FusedLocationProviderClient mFusedLocationClient;
     public Location mLastLocation;
@@ -76,6 +77,7 @@ public class Match extends AppCompatActivity {
 
 
         //set views
+        backDrop = findViewById(R.id.backdrop);
         loading = findViewById(R.id.loading);
         outOfPoliticians = findViewById(R.id.outOfPoliticians);
         removePreview = findViewById(R.id.removePreview);
@@ -201,6 +203,7 @@ public class Match extends AppCompatActivity {
             db.addLikeToUser(politician.getId());
             MoveData.getInstance().setPolitician(politician);
             loadFragment();
+            backDrop.setVisibility(View.VISIBLE);
         }
 
     }
@@ -215,7 +218,7 @@ public class Match extends AppCompatActivity {
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.animation_move_frag);
         frag_container.startAnimation(animation);
         frag_container.setVisibility(View.GONE);
-
+        backDrop.setVisibility(View.GONE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
