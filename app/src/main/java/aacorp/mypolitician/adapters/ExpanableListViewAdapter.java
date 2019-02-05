@@ -156,11 +156,6 @@ public class ExpanableListViewAdapter extends BaseExpandableListAdapter {
         else if(icon.equals(Constants.CULTURE_ICON)) img.setImageResource(R.drawable.cul);
         else if(icon.equals(Constants.ORGANIC_ICON)) img.setImageResource(R.drawable.org);
         else if(icon.equals(Constants.FREEDOM_ICON)) img.setImageResource(R.drawable.fre);
-
-
-
-
-
         return view;
     }
 

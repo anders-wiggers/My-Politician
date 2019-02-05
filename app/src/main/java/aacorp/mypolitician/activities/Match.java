@@ -142,7 +142,7 @@ public class Match extends AppCompatActivity {
         else {
             (findViewById(R.id.redo_button)).setVisibility(View.VISIBLE);
         }
-        expandableListView = (ExpandableListView) findViewById(R.id.eList);
+        expandableListView = findViewById(R.id.eList);
         ExpanableListViewAdapter adapter = new ExpanableListViewAdapter(this,politician);
         expandableListView.setAdapter(adapter);
         loading.setVisibility(View.GONE);
